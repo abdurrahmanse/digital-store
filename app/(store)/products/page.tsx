@@ -35,10 +35,11 @@ export default async function ProductsPage({ searchParams }: { searchParams?: Pr
 
   return (
     <>
-      <FeaturedProducts />
+
       <Suspense fallback={<div className="container py-20 text-center text-muted-foreground">Loading products...</div>}>
         <ProductsClient allProducts={formattedProducts} />
       </Suspense>
+      <FeaturedProducts />
     </>
   );
 }

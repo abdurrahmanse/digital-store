@@ -5,15 +5,20 @@ import { prisma } from "@/lib/prisma";
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 import { generateAndSendRegistrationOTP } from "@/actions/otp";
+import { LoginSchema, RegisterSchema } from "@/validations/auth";
 
 export async function registerUser(formData: FormData) {
-  const name = formData.get("name") as string;
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+  const validatedFields = RegisterSchema.safeParse({
+    name: formData.get("name"),
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
 
-  if (!email || !password || !name) {
-    return { error: "Missing required fields" };
+  if (!validatedFields.success) {
+    return { error: validatedFields.error.issues[0].message };
   }
+
+  const { name, email, password } = validatedFields.data;
 
   try {
     const existingUser = await prisma.user.findUnique({
@@ -49,10 +54,18 @@ export async function registerUser(formData: FormData) {
 }
 
 export async function loginUser(formData: FormData) {
+  const validatedFields = LoginSchema.safeParse({
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
+
+  if (!validatedFields.success) {
+    return { error: validatedFields.error.issues[0].message };
+  }
+
+  const { email, password } = validatedFields.data;
+
   try {
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    
     await signIn("credentials", {
       email,
       password,

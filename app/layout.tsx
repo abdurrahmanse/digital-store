@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Rajdhani } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 
-const inter = Inter({
+const rajdhani = Rajdhani({
+  weight: ["600", "700"],
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-rajdhani",
 });
 
 export const metadata: Metadata = {
@@ -18,9 +20,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={rajdhani.variable} suppressHydrationWarning>
       <body className="min-h-screen flex flex-col font-sans antialiased">
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

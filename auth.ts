@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { CredentialsSignin } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
@@ -24,6 +24,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (!user || !user.password) {
           return null;
+        }
+
+        if (!user.emailVerified) {
+          throw new CredentialsSignin("unverified");
         }
 
         const isPasswordValid = await compare(credentials.password as string, user.password);

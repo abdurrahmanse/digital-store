@@ -9,8 +9,14 @@ export default function RegisterPage() {
     "use server";
     const res = await registerUser(formData);
     if (res?.success) {
-      redirect("/login?registered=true");
+      if (res.pendingVerification) {
+        const email = formData.get("email") as string;
+        redirect(`/verify-email?email=${encodeURIComponent(email)}`);
+      } else {
+        redirect("/login?registered=true");
+      }
     } else {
+      // In a real app we'd show this error in the UI
       console.error(res?.error);
     }
   }
@@ -18,28 +24,28 @@ export default function RegisterPage() {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900">Create an account</h1>
-        <p className="text-sm text-slate-500 mt-2">Get instant access to premium digital products</p>
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">Create an account</h1>
+        <p className="text-sm text-muted-foreground mt-2">Get instant access to premium digital products</p>
       </div>
 
       <form action={handleSubmit} className="space-y-4">
         <div className="space-y-2">
-          <label className="text-sm font-semibold text-slate-700">Full Name</label>
-          <Input type="text" name="name" required placeholder="John Doe" className="h-11 bg-slate-50 border-slate-200" />
+          <label className="text-sm font-semibold text-foreground">Full Name</label>
+          <Input type="text" name="name" required placeholder="John Doe" className="h-11 bg-background border-input" />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-semibold text-slate-700">Email</label>
-          <Input type="email" name="email" required placeholder="you@example.com" className="h-11 bg-slate-50 border-slate-200" />
+          <label className="text-sm font-semibold text-foreground">Email</label>
+          <Input type="email" name="email" required placeholder="you@example.com" className="h-11 bg-background border-input" />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-semibold text-slate-700">Password</label>
-          <Input type="password" name="password" required placeholder="••••••••" className="h-11 bg-slate-50 border-slate-200" />
+          <label className="text-sm font-semibold text-foreground">Password</label>
+          <Input type="password" name="password" required placeholder="••••••••" className="h-11 bg-background border-input" />
         </div>
         
         <Button type="submit" className="w-full h-12 text-base font-semibold rounded-xl mt-4">Create account</Button>
       </form>
 
-      <div className="text-center text-sm text-slate-500 pt-6 mt-6 border-t border-slate-100">
+      <div className="text-center text-sm text-muted-foreground pt-6 mt-6 border-t border-border">
         Already have an account?{" "}
         <Link href="/login" className="font-semibold text-primary hover:underline">
           Sign in

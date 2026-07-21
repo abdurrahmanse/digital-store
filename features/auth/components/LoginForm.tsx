@@ -78,7 +78,7 @@ export function LoginForm({ registered, reset, verified }: LoginFormProps) {
           <Input type="password" name="password" required placeholder="••••••••" className="h-11 bg-background border-input" />
         </div>
         
-        <Button type="submit" disabled={loading} className="w-full h-12 text-base font-semibold rounded-xl mt-4">
+        <Button type="submit" isLoading={loading} className="w-full h-12 text-base font-semibold rounded-xl mt-4">
           {loading ? "Signing in..." : "Sign in"}
         </Button>
       </form>

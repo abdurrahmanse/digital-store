@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/ui/submit-button";
 import { Lock, ShieldCheck } from "lucide-react";
 import { createOrder } from "@/features/checkout/actions";
 
@@ -57,9 +58,9 @@ export function CheckoutSummary({ product }: CheckoutSummaryProps) {
 
           <form id="checkout-form" action={createOrder} className="w-full">
             <input type="hidden" name="productId" value={product.id} />
-            <Button type="submit" size="lg" className="w-full h-14 rounded-xl text-base font-semibold shadow-sm text-white">
+            <SubmitButton size="lg" className="w-full h-14 rounded-xl text-base font-semibold shadow-sm text-white" loadingText={`Paying ৳${priceFormatted}...`}>
               <Lock className="w-4 h-4 mr-2" /> Pay ৳{priceFormatted}
-            </Button>
+            </SubmitButton>
           </form>
           
           <p className="text-xs text-center text-slate-500 dark:text-slate-400 mt-5 flex items-center justify-center gap-1.5 font-medium">

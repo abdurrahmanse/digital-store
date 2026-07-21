@@ -1,12 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Download, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { auth } from "@/auth";
 
-export default function UserDashboard() {
+export default async function UserDashboard() {
+  const session = await auth();
+  const firstName = session?.user?.name?.split(" ")[0] || "User";
+
   return (
     <div className="max-w-5xl mx-auto space-y-8 md:space-y-10">
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Welcome back, John!</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Welcome back, {firstName}!</h1>
         <p className="text-slate-500 mt-1">Manage your purchases and account settings.</p>
       </div>
 

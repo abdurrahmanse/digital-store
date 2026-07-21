@@ -1,7 +1,15 @@
 import Link from "next/link";
-import { Home, Package, Settings, LogOut } from "lucide-react";
+import { Home, Package, Settings, LogOut, ShieldAlert } from "lucide-react";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const session = await auth();
+
+  if (!session) {
+    redirect("/login");
+  }
+
   return (
     <div className="flex min-h-screen bg-slate-50">
       {/* Sidebar */}
@@ -21,6 +29,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <Link href="/dashboard/settings" className="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-lg font-medium transition-colors">
             <Settings className="w-5 h-5" /> Settings
           </Link>
+          {session.user.role === "ADMIN" && (
+            <Link href="/admin" className="flex items-center gap-3 px-3 py-2.5 text-amber-600 hover:bg-amber-50 hover:text-amber-700 rounded-lg font-medium transition-colors mt-4 border border-amber-200 bg-amber-50/50">
+              <ShieldAlert className="w-5 h-5" /> Admin Panel
+            </Link>
+          )}
         </nav>
         <div className="p-4 border-t border-slate-200">
           <button className="flex w-full items-center gap-3 px-3 py-2 text-slate-600 hover:bg-red-50 hover:text-red-600 rounded-lg font-medium transition-colors">

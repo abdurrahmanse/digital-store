@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { ProductCard } from "@/components/product/product-card";
+import { ProductCard } from "@/features/product/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { LayoutGrid, Code, CreditCard, Globe, PenTool, Key, Download, Repeat } from "lucide-react";
 

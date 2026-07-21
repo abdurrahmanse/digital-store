@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Rajdhani } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "sonner";
 
 const rajdhani = Rajdhani({
   weight: ["600", "700"],
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col font-sans antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}
+          <Toaster theme="system" richColors closeButton />
         </ThemeProvider>
       </body>
     </html>

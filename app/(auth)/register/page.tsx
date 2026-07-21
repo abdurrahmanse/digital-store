@@ -1,23 +1,35 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { registerUser } from "@/actions/auth";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export default function RegisterPage() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
   async function handleSubmit(formData: FormData) {
-    "use server";
-    const res = await registerUser(formData);
-    if (res?.success) {
-      if (res.pendingVerification) {
-        const email = formData.get("email") as string;
-        redirect(`/verify-email?email=${encodeURIComponent(email)}`);
+    setLoading(true);
+    try {
+      const res = await registerUser(formData);
+      if (res?.success) {
+        if (res.pendingVerification) {
+          const email = formData.get("email") as string;
+          router.push(`/verify-email?email=${encodeURIComponent(email)}`);
+        } else {
+          router.push("/login?registered=true");
+        }
       } else {
-        redirect("/login?registered=true");
+        toast.error(res?.error || "Registration failed");
       }
-    } else {
-      // In a real app we'd show this error in the UI
-      console.error(res?.error);
+    } catch (err) {
+      toast.error("An unexpected error occurred");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -42,7 +54,9 @@ export default function RegisterPage() {
           <Input type="password" name="password" required placeholder="••••••••" className="h-11 bg-background border-input" />
         </div>
         
-        <Button type="submit" className="w-full h-12 text-base font-semibold rounded-xl mt-4">Create account</Button>
+        <Button type="submit" disabled={loading} className="w-full h-12 text-base font-semibold rounded-xl mt-4">
+          {loading ? "Creating account..." : "Create account"}
+        </Button>
       </form>
 
       <div className="text-center text-sm text-muted-foreground pt-6 mt-6 border-t border-border">

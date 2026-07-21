@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -15,6 +16,13 @@ enum OrderStatus {
   PENDING
   COMPLETED
   FAILED
+}
+
+enum ProductType {
+  LICENSE
+  DOWNLOAD
+  SUBSCRIPTION
+  SERVICE
 }
 
 model User {
@@ -38,6 +46,8 @@ model Product {
   price       Int // Stored in cents
   imageUrl    String?
   fileUrl     String? // URL to the digital file (e.g., S3 link)
+  productType ProductType @default(DOWNLOAD)
+  category    String      @default("Uncategorized")
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

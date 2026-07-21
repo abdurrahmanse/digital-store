@@ -9,23 +9,11 @@
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
 
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
 
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
 
   --color-border: var(--border);
   --color-input: var(--input);
@@ -38,35 +26,23 @@
 
 @layer base {
   :root {
-    --background: #ffffff;
-    --foreground: #09090b;
+    --background: #ffffff;       /* Pure white */
+    --foreground: #0f172a;       /* Slate 900 */
 
     --card: #ffffff;
-    --card-foreground: #09090b;
+    --card-foreground: #0f172a;
 
-    --popover: #ffffff;
-    --popover-foreground: #09090b;
+    --primary: #2563eb;          /* Blue 600 */
+    --primary-foreground: #ffffff;
 
-    --primary: #18181b;
-    --primary-foreground: #fafafa;
+    --muted: #f8fafc;            /* Slate 50 */
+    --muted-foreground: #64748b; /* Slate 500 */
 
-    --secondary: #f4f4f5;
-    --secondary-foreground: #18181b;
+    --border: #e2e8f0;           /* Slate 200 */
+    --input: #e2e8f0;
+    --ring: #2563eb;             /* Primary blue for focus rings */
 
-    --muted: #f4f4f5;
-    --muted-foreground: #71717a;
-
-    --accent: #f4f4f5;
-    --accent-foreground: #18181b;
-
-    --destructive: #ef4444;
-    --destructive-foreground: #fafafa;
-
-    --border: #e4e4e7;
-    --input: #e4e4e7;
-    --ring: #18181b;
-
-    --radius: 0.5rem;
+    --radius: 0.75rem;           /* Rounded-xl by default for that soft SaaS look */
   }
 }
 

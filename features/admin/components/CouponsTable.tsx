@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus, Ticket } from "lucide-react";
+import { Pagination } from "@/components/ui/pagination";
 
 type Coupon = {
   id: string;
@@ -16,7 +17,15 @@ type Coupon = {
   createdAt: Date;
 };
 
-export function CouponsTable({ coupons }: { coupons: Coupon[] }) {
+export function CouponsTable({ 
+  coupons,
+  currentPage,
+  totalPages
+}: { 
+  coupons: Coupon[];
+  currentPage: number;
+  totalPages: number;
+}) {
   return (
     <Card className="border-slate-200 dark:border-slate-800/60 shadow-none rounded-xl bg-white dark:bg-slate-950 overflow-hidden">
       <CardHeader className="border-b border-slate-100 dark:border-slate-800/50 flex flex-row items-center justify-between pb-4">
@@ -89,6 +98,9 @@ export function CouponsTable({ coupons }: { coupons: Coupon[] }) {
           </div>
         )}
       </CardContent>
+      {totalPages > 1 && (
+        <Pagination currentPage={currentPage} totalPages={totalPages} />
+      )}
     </Card>
   );
 }

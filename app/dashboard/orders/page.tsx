@@ -3,14 +3,19 @@ import { OrdersTable } from "@/features/admin/components/OrdersTable";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
-export default async function OrdersPage() {
+export default async function OrdersPage({
+  searchParams
+}: {
+  searchParams: { page?: string }
+}) {
   const session = await auth();
   
   if (!session?.user || session.user.role !== "ADMIN") {
     redirect("/dashboard");
   }
 
-  const orders = await getAllOrders();
+  const page = parseInt(searchParams.page || "1", 10);
+  const orders = await getAllOrders({ page, limit: 10 });
 
   return (
     <div className="space-y-6">
@@ -20,7 +25,11 @@ export default async function OrdersPage() {
           <p className="text-slate-500 dark:text-slate-400 mt-1">Manage and view all customer orders</p>
         </div>
       </div>
-      <OrdersTable orders={orders.data} />
+      <OrdersTable 
+        orders={orders.data} 
+        currentPage={orders.currentPage}
+        totalPages={orders.totalPages}
+      />
     </div>
   );
 }

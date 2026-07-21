@@ -1,12 +1,21 @@
 import { getAllProducts } from "@/features/admin/queries";
 import { ProductsTable } from "@/features/admin/components/ProductsTable";
 
-export default async function AdminProductsPage() {
-  const products = await getAllProducts();
+export default async function AdminProductsPage({
+  searchParams
+}: {
+  searchParams: { page?: string }
+}) {
+  const page = parseInt(searchParams.page || "1", 10);
+  const products = await getAllProducts({ page, limit: 10 });
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">
-      <ProductsTable products={products.data} />
+      <ProductsTable 
+        products={products.data} 
+        currentPage={products.currentPage}
+        totalPages={products.totalPages}
+      />
     </div>
   );
 }

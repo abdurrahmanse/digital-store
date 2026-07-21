@@ -1,6 +1,12 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Trash2 } from "lucide-react";
+import { deleteCustomer } from "@/actions/admin/customers";
+import { toast } from "sonner";
+import { useTransition } from "react";
+import { Pagination } from "@/components/ui/pagination";
 
 type User = {
   id: string;
@@ -13,7 +19,30 @@ type User = {
   };
 };
 
-export function UsersTable({ users }: { users: User[] }) {
+export function UsersTable({ 
+  users,
+  currentPage,
+  totalPages
+}: { 
+  users: User[];
+  currentPage: number;
+  totalPages: number;
+}) {
+  const [isPending, startTransition] = useTransition();
+
+  const handleDelete = (userId: string, name: string) => {
+    if (window.confirm(`Are you sure you want to delete ${name}? This action cannot be undone.`)) {
+      startTransition(async () => {
+        try {
+          await deleteCustomer(userId);
+          toast.success("Customer deleted successfully");
+        } catch (error: any) {
+          toast.error(error.message || "Failed to delete customer");
+        }
+      });
+    }
+  };
+
   return (
     <Card className="border-slate-200 dark:border-slate-800/60 shadow-none rounded-xl bg-white dark:bg-slate-950 overflow-hidden">
       <CardHeader className="border-b border-slate-100 dark:border-slate-800/50 pb-4">
@@ -34,6 +63,7 @@ export function UsersTable({ users }: { users: User[] }) {
                   <th className="px-6 py-4 font-medium tracking-wide">Role</th>
                   <th className="px-6 py-4 font-medium tracking-wide">Total Orders</th>
                   <th className="px-6 py-4 font-medium tracking-wide">Joined</th>
+                  <th className="px-6 py-4 font-medium tracking-wide text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -62,6 +92,18 @@ export function UsersTable({ users }: { users: User[] }) {
                         year: "numeric"
                       })}
                     </td>
+                    <td className="px-6 py-4 text-right">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        disabled={isPending || user.role === "ADMIN"}
+                        onClick={() => handleDelete(user.id, user.name || user.email)}
+                        className="text-rose-600 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/50"
+                        title={user.role === "ADMIN" ? "Cannot delete admin accounts" : "Delete Customer"}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -69,6 +111,9 @@ export function UsersTable({ users }: { users: User[] }) {
           </div>
         )}
       </CardContent>
+      {totalPages > 1 && (
+        <Pagination currentPage={currentPage} totalPages={totalPages} />
+      )}
     </Card>
   );
 }

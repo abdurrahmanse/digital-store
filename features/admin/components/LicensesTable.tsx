@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Key, Upload, Plus } from "lucide-react";
+import { Pagination } from "@/components/ui/pagination";
 
 type License = {
   id: string;
@@ -20,7 +21,15 @@ type License = {
   } | null;
 };
 
-export function LicensesTable({ licenses }: { licenses: License[] }) {
+export function LicensesTable({ 
+  licenses,
+  currentPage,
+  totalPages
+}: { 
+  licenses: License[];
+  currentPage: number;
+  totalPages: number;
+}) {
   return (
     <Card className="border-slate-200 dark:border-slate-800/60 shadow-none rounded-xl bg-white dark:bg-slate-950 overflow-hidden">
       <CardHeader className="border-b border-slate-100 dark:border-slate-800/50 pb-4 flex flex-row items-center justify-between">
@@ -93,6 +102,9 @@ export function LicensesTable({ licenses }: { licenses: License[] }) {
           </div>
         )}
       </CardContent>
+      {totalPages > 1 && (
+        <Pagination currentPage={currentPage} totalPages={totalPages} />
+      )}
     </Card>
   );
 }

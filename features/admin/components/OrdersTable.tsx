@@ -5,6 +5,7 @@ import { updateOrderStatus } from "@/actions/admin/orders";
 import { OrderStatus } from "@prisma/client";
 import { toast } from "sonner";
 import { useTransition, useState } from "react";
+import { Pagination } from "@/components/ui/pagination";
 
 type Order = {
   id: string;
@@ -22,7 +23,15 @@ type Order = {
   }[];
 };
 
-export function OrdersTable({ orders }: { orders: Order[] }) {
+export function OrdersTable({ 
+  orders,
+  currentPage,
+  totalPages
+}: { 
+  orders: Order[];
+  currentPage: number;
+  totalPages: number;
+}) {
   const [activeTab, setActiveTab] = useState<string>("ALL");
   const [isPending, startTransition] = useTransition();
 
@@ -137,6 +146,9 @@ export function OrdersTable({ orders }: { orders: Order[] }) {
           </div>
         )}
       </CardContent>
+      {totalPages > 1 && (
+        <Pagination currentPage={currentPage} totalPages={totalPages} />
+      )}
     </Card>
   );
 }

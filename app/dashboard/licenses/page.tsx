@@ -1,1 +1,21 @@
-export default function Page() { return <div>Page Placeholder</div>; }
+import { getAllLicenses } from "@/features/admin/queries";
+import { LicensesTable } from "@/features/admin/components/LicensesTable";
+
+export default async function AdminLicensesPage({
+  searchParams
+}: {
+  searchParams: { page?: string }
+}) {
+  const page = parseInt(searchParams.page || "1", 10);
+  const licenses = await getAllLicenses({ page, limit: 10 });
+
+  return (
+    <div className="max-w-6xl mx-auto space-y-8">
+      <LicensesTable 
+        licenses={licenses.data} 
+        currentPage={licenses.currentPage}
+        totalPages={licenses.totalPages}
+      />
+    </div>
+  );
+}

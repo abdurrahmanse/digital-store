@@ -7,6 +7,7 @@ import Link from "next/link";
 import { deleteProduct } from "@/features/admin/actions";
 import { toast } from "sonner";
 import { useTransition } from "react";
+import { Pagination } from "@/components/ui/pagination";
 
 type Product = {
   id: string;
@@ -20,7 +21,15 @@ type Product = {
   category: { name: string } | null;
 };
 
-export function ProductsTable({ products }: { products: Product[] }) {
+export function ProductsTable({ 
+  products,
+  currentPage,
+  totalPages
+}: { 
+  products: Product[];
+  currentPage: number;
+  totalPages: number;
+}) {
   const [isPending, startTransition] = useTransition();
 
   const handleDelete = (id: string, name: string) => {
@@ -131,6 +140,9 @@ export function ProductsTable({ products }: { products: Product[] }) {
           </div>
         )}
       </CardContent>
+      {totalPages > 1 && (
+        <Pagination currentPage={currentPage} totalPages={totalPages} />
+      )}
     </Card>
   );
 }

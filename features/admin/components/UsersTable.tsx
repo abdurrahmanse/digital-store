@@ -2,7 +2,8 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
+import { Trash2, Eye } from "lucide-react";
+import Link from "next/link";
 import { deleteCustomer } from "@/actions/admin/customers";
 import { toast } from "sonner";
 import { useTransition } from "react";
@@ -93,16 +94,28 @@ export function UsersTable({
                       })}
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        disabled={isPending || user.role === "ADMIN"}
-                        onClick={() => handleDelete(user.id, user.name || user.email)}
-                        className="text-rose-600 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/50"
-                        title={user.role === "ADMIN" ? "Cannot delete admin accounts" : "Delete Customer"}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
+                      <div className="flex items-center justify-end gap-2">
+                        <Link href={`/dashboard/customers/${user.id}`}>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-950/50"
+                            title="View Customer Details"
+                          >
+                            <Eye className="w-4 h-4" />
+                          </Button>
+                        </Link>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          disabled={isPending || user.role === "ADMIN"}
+                          onClick={() => handleDelete(user.id, user.name || user.email)}
+                          className="text-rose-600 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-950/50"
+                          title={user.role === "ADMIN" ? "Cannot delete admin accounts" : "Delete Customer"}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
                     </td>
                   </tr>
                 ))}

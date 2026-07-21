@@ -226,3 +226,26 @@ export async function getAllCoupons({ page = 1, limit = 10 } = {}) {
     currentPage: page,
   };
 }
+
+export async function getUserDetails(id: string) {
+  const user = await prisma.user.findUnique({
+    where: { id },
+    include: {
+      _count: {
+        select: {
+          orders: true,
+          licenses: true
+        }
+      },
+      deviceSessions: {
+        orderBy: {
+          lastLogin: 'desc'
+        }
+      }
+    }
+  });
+  
+  if (!user) return null;
+
+  return user;
+}

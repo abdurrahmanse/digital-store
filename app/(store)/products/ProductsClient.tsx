@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { ProductCard } from "@/features/product/components/ProductCard";
+import { SortSelect } from "@/components/SortSelect";
 import { Button } from "@/components/ui/button";
 import { LayoutGrid, Code, CreditCard, Globe, PenTool, Key, Download, Repeat } from "lucide-react";
 
@@ -73,6 +74,9 @@ export function ProductsClient({ allProducts }: { allProducts: any[] }) {
             {searchQuery ? `Search Results for "${searchQuery}"` : "All Products"}
           </h1>
           <p className="text-muted-foreground mt-2">Browse our entire collection of digital products.</p>
+        </div>
+        <div className="shrink-0">
+          <SortSelect />
         </div>
       </div>
 

@@ -8,11 +8,13 @@ import { ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 
 export async function FeaturedProducts() {
-  // Fetch up to 10 active products from the database
+  // Fetch top 4 products ordered by most order items (best sellers)
   const products = await prisma.product.findMany({
     where: { isActive: true },
-    orderBy: { createdAt: 'desc' },
-    take: 10,
+    orderBy: { 
+      orderItems: { _count: 'desc' } 
+    },
+    take: 4,
   });
 
   const featuredProducts = products.map((p) => ({
@@ -55,7 +57,7 @@ export async function FeaturedProducts() {
           </div>
         </FadeIn>
         
-        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 xl:gap-10">
+        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 xl:gap-10">
           {featuredProducts.map((product) => (
             <StaggerItem key={product.slug}>
               <ProductCard {...product} />

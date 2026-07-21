@@ -59,8 +59,9 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  orders   Order[]
-  licenses License[]
+  orders         Order[]
+  licenses       License[]
+  deviceSessions DeviceSession[]
 }
 
 model Category {
@@ -179,4 +180,18 @@ model ContactMessage {
   status    ContactMessageStatus @default(UNREAD)
   createdAt DateTime             @default(now())
   updatedAt DateTime             @updatedAt
+}
+
+model DeviceSession {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ipAddress String
+  city      String?
+  region    String?
+  country   String?
+  browser   String?
+  os        String?
+  lastLogin DateTime @default(now())
+  isActive  Boolean  @default(true)
 }

@@ -2,8 +2,8 @@ import Link from "next/link";
 import Form from "next/form";
 import { ShoppingCart, User, Search, Package, MessageSquare, LogOut, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { SearchBar } from "@/components/shared/SearchBar";
 import { auth, signOut } from "@/auth";
 
 export async function Header() {
@@ -22,15 +22,7 @@ export async function Header() {
         </div>
 
         <div className="flex-1 hidden md:flex justify-center max-w-xl px-4 mx-4">
-          <Form action="/products" className="w-full relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground z-10" />
-            <Input 
-              type="search" 
-              name="q"
-              placeholder="Search products..." 
-              className="w-full bg-muted border-border pl-9 rounded-full focus-visible:ring-primary/20 h-10 text-sm shadow-inner"
-            />
-          </Form>
+          <SearchBar />
         </div>
 
         <div className="flex items-center justify-end space-x-4 w-1/4 shrink-0">

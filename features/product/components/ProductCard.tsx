@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Zap, ArrowRight, ShoppingCart } from "lucide-react";
+import { PriceDisplay } from "@/components/shared/PriceDisplay";
 
 interface ProductCardProps {
   title: string;
@@ -47,15 +48,8 @@ export function ProductCard({ title, price, originalPrice, imageUrl, slug }: Pro
             </h3>
           </Link>
           
-          <div className="flex items-center gap-2 mt-auto">
-            <span className="font-bold text-2xl text-foreground tracking-tight">
-              ৳{(price / 100).toFixed(2)}
-            </span>
-            {originalPrice && (
-              <span className="text-sm font-medium text-muted-foreground line-through decoration-muted-foreground/50">
-                ৳{(originalPrice / 100).toFixed(2)}
-              </span>
-            )}
+          <div className="mt-auto">
+            <PriceDisplay price={price} originalPrice={originalPrice} size="md" />
           </div>
         </div>
       </CardContent>

@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { ProductsClient } from "./ProductsClient";
 import { prisma } from "@/lib/prisma";
-import { SortSelect } from "@/features/product/components/SortSelect";
+import { FeaturedProducts } from "@/features/product/components/FeaturedProducts";
 
 export default async function ProductsPage({ searchParams }: { searchParams?: Promise<{ sort?: string }> }) {
   const params = await searchParams;
@@ -18,7 +18,7 @@ export default async function ProductsPage({ searchParams }: { searchParams?: Pr
   }
 
   const products = await prisma.product.findMany({
-    where: { isActive: true },
+    where: { isActive: true, isFeatured: false },
     include: { category: true },
     orderBy,
   });
@@ -34,8 +34,11 @@ export default async function ProductsPage({ searchParams }: { searchParams?: Pr
   }));
 
   return (
-    <Suspense fallback={<div className="container py-20 text-center text-muted-foreground">Loading products...</div>}>
-      <ProductsClient allProducts={formattedProducts} />
-    </Suspense>
+    <>
+      <FeaturedProducts />
+      <Suspense fallback={<div className="container py-20 text-center text-muted-foreground">Loading products...</div>}>
+        <ProductsClient allProducts={formattedProducts} />
+      </Suspense>
+    </>
   );
 }

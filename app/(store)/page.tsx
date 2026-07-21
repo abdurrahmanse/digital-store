@@ -1,5 +1,7 @@
 import { HeroSection } from "@/features/core/components/HeroSection";
 import { FeaturesSection } from "@/features/core/components/FeaturesSection";
+import { BestSellingProducts } from "@/features/product/components/BestSellingProducts";
+import { TrendingProducts } from "@/features/product/components/TrendingProducts";
 import { FeaturedProducts } from "@/features/product/components/FeaturedProducts";
 
 export default function Home() {
@@ -8,6 +10,8 @@ export default function Home() {
       <HeroSection />
       <FeaturesSection />
       <FeaturedProducts />
+      <BestSellingProducts />
+      <TrendingProducts />
     </div>
   );
 }

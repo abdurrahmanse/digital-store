@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 export default async function OrdersPage({
   searchParams
 }: {
-  searchParams: { page?: string }
+  searchParams: Promise<{ page?: string }>
 }) {
   const session = await auth();
   
@@ -14,7 +14,8 @@ export default async function OrdersPage({
     redirect("/dashboard");
   }
 
-  const page = parseInt(searchParams.page || "1", 10);
+  const params = await searchParams;
+  const page = parseInt(params?.page || "1", 10);
   const orders = await getAllOrders({ page, limit: 10 });
 
   return (

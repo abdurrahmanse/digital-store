@@ -37,6 +37,7 @@ export async function createProduct(formData: FormData) {
     const deliveryType = formData.get("deliveryType") as DeliveryType;
     const status = formData.get("status") as ProductStatus;
     const stockStr = formData.get("stock") as string;
+    const isFeatured = formData.get("isFeatured") === "on";
 
     const price = Math.round(parseFloat(priceStr) * 100);
     const discountPrice = discountPriceStr ? Math.round(parseFloat(discountPriceStr) * 100) : null;
@@ -67,6 +68,7 @@ export async function createProduct(formData: FormData) {
         status,
         stock,
         isActive: status === ProductStatus.PUBLISHED,
+        isFeatured,
       },
     });
 
@@ -95,6 +97,7 @@ export async function updateProduct(id: string, formData: FormData) {
     const deliveryType = formData.get("deliveryType") as DeliveryType;
     const status = formData.get("status") as ProductStatus;
     const stockStr = formData.get("stock") as string;
+    const isFeatured = formData.get("isFeatured") === "on";
 
     const price = Math.round(parseFloat(priceStr) * 100);
     const discountPrice = discountPriceStr ? Math.round(parseFloat(discountPriceStr) * 100) : null;
@@ -141,6 +144,7 @@ export async function updateProduct(id: string, formData: FormData) {
         status,
         stock,
         isActive: status === ProductStatus.PUBLISHED,
+        isFeatured,
       },
     });
 

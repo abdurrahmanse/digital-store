@@ -4,9 +4,10 @@ import { UsersTable } from "@/features/admin/components/UsersTable";
 export default async function AdminUsersPage({
   searchParams
 }: {
-  searchParams: { page?: string }
+  searchParams: Promise<{ page?: string }>
 }) {
-  const page = parseInt(searchParams.page || "1", 10);
+  const params = await searchParams;
+  const page = parseInt(params?.page || "1", 10);
   const users = await getAllUsers({ page, limit: 10 });
 
   return (

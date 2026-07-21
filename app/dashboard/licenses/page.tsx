@@ -4,9 +4,10 @@ import { LicensesTable } from "@/features/admin/components/LicensesTable";
 export default async function AdminLicensesPage({
   searchParams
 }: {
-  searchParams: { page?: string }
+  searchParams: Promise<{ page?: string }>
 }) {
-  const page = parseInt(searchParams.page || "1", 10);
+  const params = await searchParams;
+  const page = parseInt(params?.page || "1", 10);
   const licenses = await getAllLicenses({ page, limit: 10 });
 
   return (

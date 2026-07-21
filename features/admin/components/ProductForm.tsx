@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createProduct, updateProduct } from "@/features/admin/actions";
@@ -79,11 +80,28 @@ export function ProductForm({ initialData, categories }: ProductFormProps) {
               ))}
             </select>
           </div>
+
+          <div className="space-y-4">
+            <h3 className="font-medium">Product Visibility</h3>
+            <div className="flex items-center justify-between rounded-lg border border-border p-4">
+              <div className="space-y-0.5">
+                <Label htmlFor="isFeatured" className="text-base">Featured Product</Label>
+                <p className="text-sm text-muted-foreground">
+                  Display this product prominently on the home page and top of listings.
+                </p>
+              </div>
+              <Switch 
+                id="isFeatured" 
+                name="isFeatured" 
+                defaultChecked={initialData?.isFeatured ?? false} 
+              />
+            </div>
+          </div>
         </div>
 
         {/* Pricing & Stock */}
         <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="price">Price (BDT) *</Label>
               <Input 

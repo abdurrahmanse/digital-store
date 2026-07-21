@@ -4,9 +4,10 @@ import { ProductsTable } from "@/features/admin/components/ProductsTable";
 export default async function AdminProductsPage({
   searchParams
 }: {
-  searchParams: { page?: string }
+  searchParams: Promise<{ page?: string }>
 }) {
-  const page = parseInt(searchParams.page || "1", 10);
+  const params = await searchParams;
+  const page = parseInt(params?.page || "1", 10);
   const products = await getAllProducts({ page, limit: 10 });
 
   return (

@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { UnifiedSidebar } from "@/features/dashboard/components/UnifiedSidebar";
 import { SignOutButton } from "@/features/dashboard/components/SignOutButton";
+import { MobileSidebar } from "@/features/dashboard/components/MobileSidebar";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
@@ -34,7 +35,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
         {/* Mobile Header */}
         <header className="h-16 flex items-center justify-between px-4 md:hidden bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
           <span className="font-bold text-lg text-slate-900 dark:text-white">DigitalStore</span>
-          <button className="text-slate-600 dark:text-slate-400"><Home className="w-5 h-5"/></button>
+          <MobileSidebar role={session.user.role} />
         </header>
         
         <div className="flex-1 p-4 md:p-8 lg:p-10 overflow-auto">

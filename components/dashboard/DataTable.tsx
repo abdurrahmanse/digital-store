@@ -37,7 +37,7 @@ export function DataTable({
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
-              <thead className="text-xs text-slate-400 border-b border-slate-100 dark:border-slate-800/50 bg-slate-50/50 dark:bg-slate-900/50">
+              <thead className="text-xs text-slate-400 border-b border-slate-100 dark:border-slate-800/50 bg-slate-50/50 dark:bg-slate-900/50 whitespace-nowrap">
                 <tr>
                   {columns.map((col, i) => (
                     <th key={i} className={`px-6 py-4 font-medium tracking-wide ${i === columns.length - 1 ? "text-right" : ""}`}>
@@ -46,7 +46,7 @@ export function DataTable({
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800 whitespace-nowrap">
                 {children}
               </tbody>
             </table>

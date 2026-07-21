@@ -4,9 +4,10 @@ import { CouponsTable } from "@/features/admin/components/CouponsTable";
 export default async function AdminCouponsPage({
   searchParams
 }: {
-  searchParams: { page?: string }
+  searchParams: Promise<{ page?: string }>
 }) {
-  const page = parseInt(searchParams.page || "1", 10);
+  const params = await searchParams;
+  const page = parseInt(params?.page || "1", 10);
   const coupons = await getAllCoupons({ page, limit: 10 });
 
   return (

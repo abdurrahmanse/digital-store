@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { SearchBar } from "@/components/shared/SearchBar";
 import { auth, signOut } from "@/auth";
+import { MobileMenu } from "./mobile-menu";
 
 export async function Header() {
   const session = await auth();
@@ -71,6 +72,7 @@ export async function Header() {
                 </Button>
               </Link>
             )}
+            <MobileMenu />
           </div>
         </div>
       </div>

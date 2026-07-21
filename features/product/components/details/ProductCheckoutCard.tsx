@@ -36,7 +36,7 @@ export function ProductCheckoutCard({ productId, price, discountPrice }: Product
                 Buy Now — ৳{(price / 100).toFixed(2)}
               </Button>
             </Link>
-            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border mt-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-border mt-2">
               <div className="flex items-center gap-2 text-sm text-muted-foreground font-medium">
                 <Zap className="w-4 h-4 text-amber-500" /> Instant Delivery
               </div>

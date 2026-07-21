@@ -93,6 +93,7 @@ model Product {
   stock            Int? // Optional for physical or limited items
   status           ProductStatus @default(DRAFT)
   isActive         Boolean       @default(true) // Deprecated: keep for backwards compat temporarily
+  isFeatured       Boolean       @default(false)
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt
 

@@ -1,8 +1,9 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import { Container } from "@/components/layout/container";
 
 export default function ProductLoading() {
   return (
-    <div className="container mx-auto px-4 md:px-8 py-12 md:py-20 animate-in fade-in duration-500">
+    <Container className="py-12 md:py-20 animate-in fade-in duration-500">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Image Skeleton */}
         <Skeleton className="aspect-video lg:aspect-square w-full rounded-2xl" />
@@ -31,6 +32,6 @@ export default function ProductLoading() {
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 }

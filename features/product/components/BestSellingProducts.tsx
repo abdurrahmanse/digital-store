@@ -6,6 +6,7 @@ import { StaggerContainer, StaggerItem } from "@/components/ui/stagger-container
 import { ProductCard } from "@/features/product/components/ProductCard";
 import { ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { Container } from "@/components/layout/container";
 
 export async function BestSellingProducts() {
   // 1. Get product IDs sorted by count of completed order items
@@ -69,10 +70,10 @@ export async function BestSellingProducts() {
   }
 
   return (
-    <section className="relative overflow-hidden border-t border-border bg-background/50 py-24 md:py-32">
+    <section className="relative overflow-hidden border-t border-border bg-background/50 py-12 md:py-20">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
       
-      <div className="container px-4 md:px-8 mx-auto relative z-10">
+      <Container className="relative z-10">
         <FadeIn>
           <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-6">
             <div className="max-w-2xl">
@@ -108,7 +109,7 @@ export async function BestSellingProducts() {
             <Button variant="outline" className="w-full rounded-full h-12 border-border/50">Explore all products</Button>
           </Link>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

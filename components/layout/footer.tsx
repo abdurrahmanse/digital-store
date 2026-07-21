@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { Container } from "./container";
 
 export function Footer() {
   return (
     <footer className="border-t border-border bg-background py-12">
-      <div className="container px-4 md:px-8 mx-auto max-w-screen-xl">
+      <Container>
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
           <div>
             <Link href="/" className="inline-block mb-2">
@@ -39,7 +40,7 @@ export function Footer() {
             <Link href="#" className="hover:text-foreground transition-colors">Discord</Link>
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

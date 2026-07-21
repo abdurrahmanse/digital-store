@@ -6,6 +6,7 @@ import { StaggerContainer, StaggerItem } from "@/components/ui/stagger-container
 import { ProductCard } from "@/features/product/components/ProductCard";
 import { Flame } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { Container } from "@/components/layout/container";
 
 export async function TrendingProducts() {
   const thirtyDaysAgo = new Date();
@@ -83,8 +84,8 @@ export async function TrendingProducts() {
   }
 
   return (
-    <section className="relative overflow-hidden border-t border-border bg-slate-50 dark:bg-slate-950 py-24 md:py-32">
-      <div className="container px-4 md:px-8 mx-auto relative z-10">
+    <section className="relative overflow-hidden border-t border-border bg-slate-50 dark:bg-slate-950 py-12 md:py-20">
+      <Container className="relative z-10">
         <FadeIn>
           <div className="flex flex-col items-center text-center mb-16 gap-6">
             <div className="max-w-2xl flex flex-col items-center">
@@ -115,7 +116,7 @@ export async function TrendingProducts() {
             <Button variant="outline" className="w-full rounded-full h-12 border-border/50">View trending items</Button>
           </Link>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

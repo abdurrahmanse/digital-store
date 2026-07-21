@@ -8,6 +8,7 @@ import { ProductGrid } from "@/features/product/components/ProductGrid";
 import { CategoryFilter } from "@/features/product/components/CategoryFilter";
 import { useProductFilters } from "@/features/product/hooks/useProductFilters";
 import { Search } from "lucide-react";
+import { Container } from "@/components/layout/container";
 
 export function ProductsClient({ allProducts }: { allProducts: any[] }) {
   const searchParams = useSearchParams();
@@ -26,7 +27,7 @@ export function ProductsClient({ allProducts }: { allProducts: any[] }) {
   } = useProductFilters(allProducts, searchQuery);
 
   return (
-    <div className="container px-4 md:px-8 mx-auto py-12 md:py-20 max-w-screen-xl">
+    <Container className="py-12 md:py-20">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-foreground">
@@ -66,6 +67,6 @@ export function ProductsClient({ allProducts }: { allProducts: any[] }) {
           />
         </div>
       </div>
-    </div>
+    </Container>
   );
 }

@@ -6,14 +6,15 @@ import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { SearchBar } from "@/components/shared/SearchBar";
 import { auth, signOut } from "@/auth";
 import { MobileMenu } from "./mobile-menu";
+import { Container } from "./container";
 
 export async function Header() {
   const session = await auth();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
-      <div className="container flex h-16 max-w-screen-2xl items-center px-4 md:px-8 mx-auto">
-        <div className="flex items-center w-1/4 shrink-0">
+      <Container className="flex h-16 items-center justify-between gap-4">
+        <div className="flex items-center">
           <Link href="/" className="flex items-center space-x-2">
             <div className="bg-primary text-white p-1.5 rounded-lg shadow-sm">
               <ShoppingCart className="h-5 w-5" />
@@ -22,11 +23,11 @@ export async function Header() {
           </Link>
         </div>
 
-        <div className="flex-1 hidden md:flex justify-center max-w-xl px-4 mx-4">
+        <div className="flex-1 hidden md:flex justify-center max-w-xl px-4">
           <SearchBar />
         </div>
 
-        <div className="flex items-center justify-end space-x-4 w-1/4 shrink-0">
+        <div className="flex items-center justify-end space-x-4">
           <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
             <Link href="/products" className="transition-colors text-muted-foreground hover:text-foreground flex items-center gap-2 group">
               <Package className="w-4 h-4 group-hover:text-primary transition-colors" />
@@ -75,7 +76,7 @@ export async function Header() {
             <MobileMenu />
           </div>
         </div>
-      </div>
+      </Container>
     </header>
   );
 }

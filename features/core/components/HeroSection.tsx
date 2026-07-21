@@ -2,10 +2,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/ui/fade-in";
 import { ChevronRight } from "lucide-react";
+import { Container } from "@/components/layout/container";
 
 export function HeroSection() {
   return (
-    <section className="container px-4 md:px-8 mx-auto pb-12 pt-20 lg:pt-32 border-b border-border relative overflow-hidden">
+    <Container as="section" className="pb-12 pt-20 lg:pt-32 border-b border-border relative overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -z-10"></div>
       <div className="mx-auto flex max-w-[980px] flex-col items-center gap-4 py-8 md:py-12 md:pb-8 lg:py-24 lg:pb-20 text-center relative z-10">
         <FadeIn delay={0.1}>
@@ -44,6 +45,6 @@ export function HeroSection() {
           </div>
         </FadeIn>
       </div>
-    </section>
+    </Container>
   );
 }

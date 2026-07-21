@@ -1,9 +1,10 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProductCardSkeleton } from "@/features/product/components/ProductCardSkeleton";
+import { Container } from "@/components/layout/container";
 
 export default function ProductsLoading() {
   return (
-    <div className="container mx-auto px-4 md:px-8 py-12 animate-in fade-in duration-500">
+    <Container className="py-12 md:py-20 animate-in fade-in duration-500">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
           <Skeleton className="h-10 w-48 mb-2" />
@@ -20,6 +21,6 @@ export default function ProductsLoading() {
           <ProductCardSkeleton key={i} />
         ))}
       </div>
-    </div>
+    </Container>
   );
 }

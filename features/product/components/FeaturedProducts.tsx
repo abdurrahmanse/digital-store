@@ -6,6 +6,7 @@ import { StaggerContainer, StaggerItem } from "@/components/ui/stagger-container
 import { ProductCard } from "@/features/product/components/ProductCard";
 import { Sparkles, ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { Container } from "@/components/layout/container";
 
 export async function FeaturedProducts() {
   const products = await prisma.product.findMany({
@@ -30,8 +31,8 @@ export async function FeaturedProducts() {
   }
 
   return (
-    <section className="relative overflow-hidden border-b border-border bg-white dark:bg-slate-950/50 py-16 md:py-24">
-      <div className="container px-4 md:px-8 mx-auto relative z-10">
+    <section className="relative overflow-hidden border-b border-border bg-white dark:bg-slate-950/50 py-12 md:py-20">
+      <Container className="relative z-10">
         <FadeIn>
           <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6">
             <div className="max-w-2xl">
@@ -68,7 +69,7 @@ export async function FeaturedProducts() {
             <Button variant="outline" className="w-full rounded-full h-12 border-border/50">Browse all products</Button>
           </Link>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

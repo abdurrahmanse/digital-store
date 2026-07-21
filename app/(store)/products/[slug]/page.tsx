@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ProductGallery } from "@/features/product/components/details/ProductGallery";
 import { ProductInfo } from "@/features/product/components/details/ProductInfo";
 import { ProductCheckoutCard } from "@/features/product/components/details/ProductCheckoutCard";
+import { Container } from "@/components/layout/container";
 
 export default async function ProductDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
@@ -31,7 +32,7 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
   }
 
   return (
-    <div className="container px-4 md:px-8 mx-auto py-12 md:py-20 max-w-screen-xl">
+    <Container className="py-12 md:py-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
         <ProductGallery imageUrl={product.imageUrl} name={product.name} />
 
@@ -51,6 +52,6 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 }

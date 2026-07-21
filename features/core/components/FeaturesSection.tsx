@@ -1,6 +1,7 @@
 import { FadeIn } from "@/components/ui/fade-in";
 import { StaggerContainer, StaggerItem } from "@/components/ui/stagger-container";
 import { Zap, ShieldCheck, Clock, CreditCard } from "lucide-react";
+import { Container } from "@/components/layout/container";
 
 export function FeaturesSection() {
   const features = [
@@ -27,8 +28,8 @@ export function FeaturesSection() {
   ];
 
   return (
-    <section className="bg-muted/30 py-20 md:py-32 border-b border-border">
-      <div className="container px-4 md:px-8 mx-auto">
+    <section className="bg-muted/30 py-12 md:py-20 border-b border-border">
+      <Container>
         <FadeIn>
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">Why choose DigitalStore?</h2>
@@ -51,7 +52,7 @@ export function FeaturesSection() {
             </StaggerItem>
           ))}
         </StaggerContainer>
-      </div>
+      </Container>
     </section>
   );
 }

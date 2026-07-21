@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Phone, MapPin, Clock, Send, MessageSquare } from "lucide-react";
 import { sendContactEmail } from "@/features/contact/actions/contact";
+import { Container } from "@/components/layout/container";
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,9 +31,9 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-background pb-20">
       {/* Header Banner */}
-      <div className="bg-muted text-foreground py-16 md:py-24 px-4 relative overflow-hidden border-b border-border">
+      <div className="bg-muted text-foreground py-12 md:py-20 px-4 relative overflow-hidden border-b border-border">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary via-transparent to-transparent"></div>
-        <div className="container mx-auto max-w-5xl relative z-10 text-center">
+        <Container className="relative z-10 text-center">
           <Badge className="mb-4 bg-primary/10 hover:bg-primary/20 text-primary border-none px-3 py-1 text-sm inline-flex items-center gap-2">
             <MessageSquare className="w-4 h-4" /> Get in Touch
           </Badge>
@@ -40,10 +41,10 @@ export default function ContactPage() {
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             Whether you have a question about our products, need support, or just want to say hi, our team is ready to answer all your questions.
           </p>
-        </div>
+        </Container>
       </div>
 
-      <div className="container mx-auto max-w-6xl px-4 -mt-8 relative z-20">
+      <Container className="-mt-8 relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
           {/* Contact Information Cards */}
@@ -194,7 +195,7 @@ export default function ContactPage() {
           </div>
 
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

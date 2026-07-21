@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle2, Download, Copy, ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { Container } from "@/components/layout/container";
 
 export default async function OrderSuccessPage({ searchParams }: { searchParams: Promise<{ orderId?: string }> }) {
   const params = await searchParams;
@@ -22,13 +23,13 @@ export default async function OrderSuccessPage({ searchParams }: { searchParams:
 
   if (!order || order.items.length === 0) {
     return (
-      <div className="container px-4 md:px-8 mx-auto py-16 md:py-24 text-center">
+      <Container className="py-16 md:py-24 text-center">
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-3">Order Not Found</h1>
         <p className="text-slate-500 dark:text-slate-400 mb-6">We couldn't find the details for this order.</p>
         <Link href="/">
           <Button>Return Home</Button>
         </Link>
-      </div>
+      </Container>
     );
   }
 
@@ -37,7 +38,7 @@ export default async function OrderSuccessPage({ searchParams }: { searchParams:
   const license = order.licenses.find(l => l.productId === product.id);
 
   return (
-    <div className="container px-4 md:px-8 mx-auto py-16 md:py-24 max-w-3xl">
+    <Container className="py-16 md:py-24 max-w-3xl">
       <div className="flex flex-col items-center text-center mb-12">
         <div className="w-24 h-24 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-100 dark:border-emerald-900/50 rounded-full flex items-center justify-center mb-8 shadow-sm">
           <CheckCircle2 className="w-12 h-12 text-emerald-500" />
@@ -98,6 +99,6 @@ export default async function OrderSuccessPage({ searchParams }: { searchParams:
           </Button>
         </Link>
       </div>
-    </div>
+    </Container>
   );
 }

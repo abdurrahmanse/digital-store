@@ -14,7 +14,9 @@ enum Role {
 
 enum OrderStatus {
   PENDING
+  PAID
   COMPLETED
+  CANCELLED
   FAILED
 }
 
@@ -25,33 +27,68 @@ enum ProductType {
   SERVICE
 }
 
+enum DeliveryType {
+  INSTANT
+  MANUAL
+}
+
+enum ProductStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum LicenseStatus {
+  AVAILABLE
+  ASSIGNED
+}
+
 model User {
-  id        String   @id @default(cuid())
-  name      String?
+  id            String    @id @default(cuid())
+  name          String?
   email         String    @unique
   emailVerified DateTime?
   password      String?
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
   orders   Order[]
   licenses License[]
 }
 
+model Category {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products Product[]
+}
+
 model Product {
-  id          String   @id @default(cuid())
-  name        String
-  slug        String   @unique
-  description String
-  price       Int // Stored in cents
-  imageUrl    String?
-  fileUrl     String? // URL to the digital file (e.g., S3 link)
-  productType ProductType @default(DOWNLOAD)
-  category    String      @default("Uncategorized")
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id               String        @id @default(cuid())
+  name             String
+  slug             String        @unique
+  shortDescription String        @db.Text
+  description      String        @db.Text
+  whatsIncluded    Json? // Array of strings
+  gallery          Json? // Array of strings (image URLs)
+  price            Int // Stored in cents
+  discountPrice    Int? // Optional discount price in cents
+  imageUrl         String? // Main image
+  fileUrl          String? // URL to digital file
+  productType      ProductType   @default(DOWNLOAD)
+  deliveryType     DeliveryType  @default(INSTANT)
+  stock            Int? // Optional for physical or limited items
+  status           ProductStatus @default(DRAFT)
+  isActive         Boolean       @default(true) // Deprecated: keep for backwards compat temporarily
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 
   orderItems OrderItem[]
   licenses   License[]
@@ -81,14 +118,19 @@ model OrderItem {
 }
 
 model License {
-  id        String   @id @default(cuid())
-  key       String   @unique @default(uuid())
-  userId    String?
-  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  id     String        @id @default(cuid())
+  key    String        @unique @default(uuid())
+  status LicenseStatus @default(AVAILABLE)
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
   productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  orderId   String
-  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  orderId String?
+  order   Order?  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
   createdAt DateTime @default(now())
 }
 
@@ -100,4 +142,22 @@ model VerificationToken {
   createdAt DateTime @default(now())
 
   @@unique([email, token])
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED
+}
+
+model Coupon {
+  id            String       @id @default(cuid())
+  code          String       @unique
+  discountType  DiscountType @default(PERCENTAGE)
+  discountValue Int // Percentage (1-100) or Fixed amount (in cents)
+  usageLimit    Int? // Max times it can be used
+  usedCount     Int          @default(0) // Track how many times it was used
+  isActive      Boolean      @default(true)
+  expiresAt     DateTime?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
 }

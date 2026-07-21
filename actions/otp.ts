@@ -42,12 +42,21 @@ export async function generateAndSendOTP(formData: FormData) {
       },
     });
 
-    await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: "DigitalStore <onboarding@resend.dev>",
       to: email,
       subject: "Your Password Reset Code",
+      html: `<p>Your password reset code is: <strong>${token}</strong></p><p>This code will expire in 15 minutes.</p>`,
       text: `Your password reset code is: ${token}\n\nThis code will expire in 15 minutes.`,
     });
+
+    // Log the token to the console for easy local development
+    console.log(`[DEV] Password Reset OTP for ${email}: ${token}`);
+
+    if (error) {
+      console.error("Resend API Error:", error);
+      return { success: false, error: error.message || "Failed to send reset code" };
+    }
 
     return { success: true };
   } catch (error) {
@@ -129,12 +138,21 @@ export async function generateAndSendRegistrationOTP(email: string) {
       },
     });
 
-    await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: "DigitalStore <onboarding@resend.dev>",
       to: email,
       subject: "Verify your email address",
+      html: `<p>Your email verification code is: <strong>${token}</strong></p><p>This code will expire in 15 minutes.</p>`,
       text: `Your email verification code is: ${token}\n\nThis code will expire in 15 minutes.`,
     });
+
+    // Log the token to the console for easy local development without a verified Resend domain
+    console.log(`[DEV] Registration OTP for ${email}: ${token}`);
+
+    if (error) {
+      console.error("Resend API Error:", error);
+      return { success: false, error: error.message || "Failed to send email" };
+    }
 
     return { success: true };
   } catch (error) {

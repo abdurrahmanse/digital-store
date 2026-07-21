@@ -49,11 +49,11 @@ export function ProductCard({ title, price, originalPrice, imageUrl, slug }: Pro
           
           <div className="flex items-center gap-2 mt-auto">
             <span className="font-bold text-2xl text-foreground tracking-tight">
-              ${(price / 100).toFixed(2)}
+              ৳{(price / 100).toFixed(2)}
             </span>
             {originalPrice && (
               <span className="text-sm font-medium text-muted-foreground line-through decoration-muted-foreground/50">
-                ${(originalPrice / 100).toFixed(2)}
+                ৳{(originalPrice / 100).toFixed(2)}
               </span>
             )}
           </div>

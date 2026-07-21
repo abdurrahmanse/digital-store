@@ -1,11 +1,14 @@
 import Link from "next/link";
 import Form from "next/form";
-import { ShoppingCart, User, Search, Package, MessageSquare } from "lucide-react";
+import { ShoppingCart, User, Search, Package, MessageSquare, LogOut, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { auth, signOut } from "@/auth";
 
-export function Header() {
+export async function Header() {
+  const session = await auth();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
       <div className="container flex h-16 max-w-screen-2xl items-center px-4 md:px-8 mx-auto">
@@ -50,12 +53,32 @@ export function Header() {
                 <span className="sr-only">Cart</span>
               </Button>
             </Link>
-            <Link href="/login">
-              <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground hover:bg-muted rounded-full">
-                <User className="h-5 w-5" />
-                <span className="sr-only">Account</span>
-              </Button>
-            </Link>
+            {session?.user ? (
+              <div className="flex items-center space-x-1">
+                <Link href="/dashboard">
+                  <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground hover:bg-muted rounded-full" title="Dashboard">
+                    <LayoutDashboard className="h-5 w-5" />
+                    <span className="sr-only">Dashboard</span>
+                  </Button>
+                </Link>
+                <form action={async () => {
+                  "use server";
+                  await signOut({ redirectTo: "/" });
+                }}>
+                  <Button type="submit" variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground hover:bg-muted rounded-full" title="Logout">
+                    <LogOut className="h-5 w-5" />
+                    <span className="sr-only">Logout</span>
+                  </Button>
+                </form>
+              </div>
+            ) : (
+              <Link href="/login">
+                <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground hover:bg-muted rounded-full">
+                  <User className="h-5 w-5" />
+                  <span className="sr-only">Account</span>
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </div>

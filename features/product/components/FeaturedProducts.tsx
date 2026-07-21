@@ -5,14 +5,27 @@ import { FadeIn } from "@/components/ui/fade-in";
 import { StaggerContainer, StaggerItem } from "@/components/ui/stagger-container";
 import { ProductCard } from "@/features/product/components/ProductCard";
 import { ChevronRight } from "lucide-react";
+import { prisma } from "@/lib/prisma";
 
-export function FeaturedProducts() {
-  // Mock data for featured products covering various digital products
-  const featuredProducts = [
-    { title: "Windows 11 Pro License Key", price: 2900, originalPrice: 19900, slug: "windows-11-pro", imageUrl: "/images/p1.jpg" },
-    { title: "JetBrains All Products Pack (1 Year)", price: 14900, slug: "jetbrains-pack", imageUrl: "/images/p2.jpg" },
-    { title: "Premium VPS Hosting - 8GB RAM", price: 1200, originalPrice: 2400, slug: "vps-8gb", imageUrl: "/images/p3.jpg" },
-  ];
+export async function FeaturedProducts() {
+  // Fetch up to 10 active products from the database
+  const products = await prisma.product.findMany({
+    where: { isActive: true },
+    orderBy: { createdAt: 'desc' },
+    take: 10,
+  });
+
+  const featuredProducts = products.map((p) => ({
+    title: p.name,
+    price: p.price,
+    originalPrice: p.discountPrice || undefined,
+    slug: p.slug,
+    imageUrl: p.imageUrl || "",
+  }));
+
+  if (featuredProducts.length === 0) {
+    return null; // Return nothing if no products are available
+  }
 
   return (
     <section className="relative overflow-hidden border-t border-border bg-background/50 py-24 md:py-32">

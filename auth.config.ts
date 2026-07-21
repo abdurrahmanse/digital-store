@@ -8,6 +8,16 @@ export const authConfig = {
     strategy: "jwt",
   },
   callbacks: {
+    authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+      const isProtected = nextUrl.pathname.startsWith('/dashboard') || nextUrl.pathname.startsWith('/checkout');
+      
+      if (isProtected) {
+        if (isLoggedIn) return true;
+        return false; // Redirect to signIn
+      }
+      return true;
+    },
     async jwt({ token, user }) {
       if (user) {
         token.role = user.role;

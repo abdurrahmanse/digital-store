@@ -21,6 +21,13 @@ export async function sendContactEmail(formData: FormData) {
       to: "hello@digitalstore.com", // Replace with store owner's email
       replyTo: email,
       subject: `New Contact Request: ${subject || 'No Subject'}`,
+      html: `
+        <p><strong>Name:</strong> ${firstName} ${lastName}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Message:</strong></p>
+        <p style="white-space: pre-wrap;">${message}</p>
+      `,
       text: `Name: ${firstName} ${lastName}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`,
     });
 

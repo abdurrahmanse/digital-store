@@ -17,6 +17,7 @@ type ProductFormProps = {
 export function ProductForm({ initialData, categories }: ProductFormProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [imagePreview, setImagePreview] = useState<string | null>(initialData?.imageUrl || null);
 
   const isEditing = !!initialData;
 
@@ -122,13 +123,33 @@ export function ProductForm({ initialData, categories }: ProductFormProps) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="imageUrl">Image URL</Label>
+            <Label htmlFor="imageFile">Product Image</Label>
+            {imagePreview && (
+              <div className="mb-2">
+                <img 
+                  src={imagePreview} 
+                  alt="Product image preview" 
+                  className="h-20 w-auto rounded-md border border-border object-cover" 
+                />
+              </div>
+            )}
             <Input 
-              id="imageUrl" 
-              name="imageUrl" 
-              defaultValue={initialData?.imageUrl || ""} 
-              placeholder="/images/p1.jpg" 
+              id="imageFile" 
+              name="imageFile" 
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  setImagePreview(URL.createObjectURL(file));
+                } else {
+                  setImagePreview(initialData?.imageUrl || null);
+                }
+              }}
             />
+            <p className="text-xs text-muted-foreground">
+              {initialData?.imageUrl ? "Upload a new image to replace the current one." : "Upload a product image."}
+            </p>
           </div>
         </div>
       </div>

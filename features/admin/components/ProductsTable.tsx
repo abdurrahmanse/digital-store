@@ -12,6 +12,7 @@ import { ActionMenu } from "@/components/dashboard/ActionMenu";
 type Product = {
   id: string;
   name: string;
+  imageUrl: string | null;
   price: number;
   discountPrice: number | null;
   productType: string;
@@ -59,9 +60,18 @@ export function ProductsTable({
     >
       {products.map((product) => (
         <tr key={product.id} className="hover:bg-slate-50/40 dark:hover:bg-slate-800/40 transition-colors group">
-          <td className="px-6 py-4">
-            <div className="font-medium text-slate-900 dark:text-white">{product.name}</div>
-            <div className="text-slate-400 text-xs mt-0.5 font-mono">{product.id}</div>
+          <td className="px-6 py-4 flex items-center gap-3">
+            {product.imageUrl ? (
+              <img src={product.imageUrl} alt={product.name} className="w-10 h-10 rounded-md object-cover border border-border" />
+            ) : (
+              <div className="w-10 h-10 rounded-md bg-muted border border-border flex items-center justify-center text-[10px] text-muted-foreground">
+                No IMG
+              </div>
+            )}
+            <div>
+              <div className="font-medium text-slate-900 dark:text-white">{product.name}</div>
+              <div className="text-slate-400 text-xs mt-0.5 font-mono">{product.id}</div>
+            </div>
           </td>
           <td className="px-6 py-4">
             <div className="text-slate-600 dark:text-slate-400 font-medium">{product.category?.name || "Uncategorized"}</div>

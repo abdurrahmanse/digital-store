@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -22,10 +23,20 @@ export function ProductCard({ title, price, originalPrice, imageUrl, slug }: Pro
         {/* Subtle gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10 opacity-60" />
         
-        {/* Placeholder for actual image */}
-        <div className="absolute inset-0 bg-muted/30 group-hover/card:scale-105 transition-transform duration-700 ease-out flex items-center justify-center text-muted-foreground/40 text-sm font-medium">
-          Product Preview
-        </div>
+        {/* Actual Image or Placeholder */}
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt={title}
+            fill
+            className="object-cover group-hover/card:scale-105 transition-transform duration-700 ease-out"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-muted/30 group-hover/card:scale-105 transition-transform duration-700 ease-out flex items-center justify-center text-muted-foreground/40 text-sm font-medium">
+            Product Preview
+          </div>
+        )}
         
         <div className="absolute top-3 left-3 flex flex-col gap-2 z-20">
           <Badge variant="secondary" className="bg-background/80 backdrop-blur-md text-foreground font-medium border-border/50 shadow-sm px-2.5 py-0.5">

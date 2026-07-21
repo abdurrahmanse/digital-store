@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
 import Link from "next/link";
-import { deleteCustomer } from "@/actions/admin/customers";
+import { deleteCustomer } from "@/features/admin/actions/customers";
 import { DataTable } from "@/components/dashboard/DataTable";
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { ActionMenu } from "@/components/dashboard/ActionMenu";

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Form from "next/form";
 import { ShoppingCart, User, Search, Package, MessageSquare, LogOut, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { SearchBar } from "@/components/shared/SearchBar";
 import { auth, signOut } from "@/auth";
 

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Phone, MapPin, Clock, Send, MessageSquare } from "lucide-react";
-import { sendContactEmail } from "@/actions/contact";
+import { sendContactEmail } from "@/features/contact/actions/contact";
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);

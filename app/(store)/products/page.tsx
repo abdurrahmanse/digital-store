@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { ProductsClient } from "./ProductsClient";
 import { prisma } from "@/lib/prisma";
-import { SortSelect } from "@/components/SortSelect";
+import { SortSelect } from "@/features/product/components/SortSelect";
 
 export default async function ProductsPage({ searchParams }: { searchParams?: Promise<{ sort?: string }> }) {
   const params = await searchParams;

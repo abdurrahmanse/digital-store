@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { SortSelect } from "@/components/SortSelect";
+import { SortSelect } from "@/features/product/components/SortSelect";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { Pagination } from "@/components/shared/Pagination";
 import { ProductGrid } from "@/features/product/components/ProductGrid";

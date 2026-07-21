@@ -2,7 +2,7 @@
 
 import { Resend } from "resend";
 import { prisma } from "@/lib/prisma";
-import { ContactSchema } from "@/validations/contact";
+import { ContactSchema } from "@/features/contact/validations/contact";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 

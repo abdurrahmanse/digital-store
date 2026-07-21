@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { formatDistanceToNow } from "date-fns";
 import { Mail, Check, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { markMessageAsRead, deleteMessage } from "@/actions/contact-dashboard";
+import { markMessageAsRead, deleteMessage } from "@/features/contact/actions/contact-dashboard";
 import { revalidatePath } from "next/cache";
 
 export const metadata = {

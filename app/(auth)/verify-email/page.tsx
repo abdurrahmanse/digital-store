@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { verifyRegistrationOTP } from "@/actions/otp";
+import { verifyRegistrationOTP } from "@/features/auth/actions/otp";
 import { redirect } from "next/navigation";
 
 export default async function VerifyEmailPage({

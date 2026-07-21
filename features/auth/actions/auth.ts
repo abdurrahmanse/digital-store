@@ -5,8 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 import { headers } from "next/headers";
-import { generateAndSendRegistrationOTP } from "@/actions/otp";
-import { LoginSchema, RegisterSchema } from "@/validations/auth";
+import { generateAndSendRegistrationOTP } from "@/features/auth/actions/otp";
+import { LoginSchema, RegisterSchema } from "@/features/auth/validations/auth";
 
 function parseUserAgent(userAgent: string) {
   let browser = "Unknown";

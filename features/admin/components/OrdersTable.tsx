@@ -1,6 +1,6 @@
 "use client";
 
-import { updateOrderStatus } from "@/actions/admin/orders";
+import { updateOrderStatus } from "@/features/admin/actions/orders";
 import { OrderStatus } from "@prisma/client";
 import { toast } from "sonner";
 import { useTransition, useState } from "react";

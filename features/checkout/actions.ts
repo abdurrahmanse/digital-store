@@ -34,7 +34,7 @@ export async function createOrder(formData: FormData) {
     data: {
       userId: userId,
       amount: product.price,
-      status: "COMPLETED", // Mock payment success
+      status: "PENDING", // Wait for admin approval
       items: {
         create: [
           {
@@ -45,18 +45,6 @@ export async function createOrder(formData: FormData) {
       },
     },
   });
-
-  // 4. If the product is a license type, generate a license (mock)
-  if (product.productType === "LICENSE") {
-    await prisma.license.create({
-      data: {
-        productId: product.id,
-        orderId: order.id,
-        userId: userId,
-        status: "ASSIGNED",
-      },
-    });
-  }
 
   // 5. Redirect to success page
   redirect(`/success?orderId=${order.id}`);

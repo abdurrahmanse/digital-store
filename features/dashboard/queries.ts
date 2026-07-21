@@ -6,7 +6,6 @@ export async function getUserPurchases(userId: string) {
     where: {
       order: {
         userId: userId,
-        status: "COMPLETED",
       },
     },
     include: {
@@ -14,6 +13,7 @@ export async function getUserPurchases(userId: string) {
       order: {
         select: {
           createdAt: true,
+          status: true,
         },
       },
     },
@@ -50,6 +50,7 @@ export async function getUserPurchases(userId: string) {
         fileUrl: item.product.fileUrl,
         imageUrl: item.product.imageUrl,
       },
+      status: item.order.status,
       licenseKey: license?.key || null,
     };
   });

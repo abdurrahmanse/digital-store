@@ -1,7 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { updateOrderStatus } from "@/actions/admin/orders";
+import { OrderStatus } from "@prisma/client";
+import { toast } from "sonner";
+import { useTransition, useState } from "react";
 
 type Order = {
   id: string;
@@ -21,6 +24,7 @@ type Order = {
 
 export function OrdersTable({ orders }: { orders: Order[] }) {
   const [activeTab, setActiveTab] = useState<string>("ALL");
+  const [isPending, startTransition] = useTransition();
 
   const filteredOrders = orders.filter(
     (o) => activeTab === "ALL" || o.status === activeTab
@@ -34,8 +38,8 @@ export function OrdersTable({ orders }: { orders: Order[] }) {
             <CardTitle className="text-base font-semibold text-slate-800 dark:text-slate-200 tracking-tight">All Orders</CardTitle>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">A complete history of all customer purchases.</p>
           </div>
-          <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-lg self-start">
-            {["ALL", "PENDING", "PAID", "COMPLETED", "CANCELLED"].map(tab => (
+          <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-lg self-start overflow-x-auto max-w-full">
+            {["ALL", "PENDING", "PROCESSING", "PAID", "COMPLETED", "CANCELLED"].map(tab => (
               <button 
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -66,6 +70,7 @@ export function OrdersTable({ orders }: { orders: Order[] }) {
                   <th className="px-6 py-4 font-medium tracking-wide">Amount</th>
                   <th className="px-6 py-4 font-medium tracking-wide">Status</th>
                   <th className="px-6 py-4 font-medium tracking-wide">Date</th>
+                  <th className="px-6 py-4 font-medium tracking-wide text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -84,10 +89,12 @@ export function OrdersTable({ orders }: { orders: Order[] }) {
                     <td className="px-6 py-4">
                       <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${
                         order.status === "COMPLETED" || order.status === "PAID"
-                          ? "bg-emerald-100 text-emerald-700" 
+                          ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400" 
+                          : order.status === "PROCESSING"
+                          ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
                           : order.status === "PENDING"
-                          ? "bg-amber-100 text-amber-700"
-                          : "bg-rose-100 text-rose-700"
+                          ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+                          : "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400"
                       }`}>
                         {order.status}
                       </span>
@@ -98,6 +105,30 @@ export function OrdersTable({ orders }: { orders: Order[] }) {
                         day: "numeric",
                         year: "numeric"
                       })}
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <select 
+                        disabled={isPending}
+                        value={order.status}
+                        onChange={(e) => {
+                          const newStatus = e.target.value as OrderStatus;
+                          startTransition(async () => {
+                            try {
+                              await updateOrderStatus(order.id, newStatus);
+                              toast.success(`Order status updated to ${newStatus}`);
+                            } catch (error) {
+                              toast.error("Failed to update order status");
+                            }
+                          });
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 cursor-pointer disabled:opacity-50"
+                      >
+                        <option value="PENDING">Pending</option>
+                        <option value="PROCESSING">Processing</option>
+                        <option value="COMPLETED">Completed</option>
+                        <option value="CANCELLED">Cancelled</option>
+                      </select>
                     </td>
                   </tr>
                 ))}

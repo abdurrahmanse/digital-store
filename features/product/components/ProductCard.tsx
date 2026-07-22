@@ -54,7 +54,7 @@ export function ProductCard({ title, price, originalPrice, imageUrl, slug }: Pro
         {/* A subtle glass panel effect for the content area to overlap the image slightly */}
         <div className="bg-background/95 backdrop-blur-xl border border-border/50 rounded-2xl p-4 flex-1 flex flex-col shadow-sm transition-colors group-hover/card:border-border">
           <Link href={`/products/${slug}`}>
-            <h3 className="font-semibold text-lg line-clamp-2 hover:text-primary transition-colors text-foreground mb-3 tracking-tight">
+            <h3 className="font-semibold text-lg line-clamp-2 hover:text-primary transition-colors mb-3 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
               {title}
             </h3>
           </Link>

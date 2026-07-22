@@ -23,7 +23,7 @@ export default async function CheckoutPage({ searchParams }: { searchParams: Pro
   if (productId && !product) {
     return (
       <Container className="py-12 md:py-20 text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-3">Product Not Found</h1>
+        <h1 className="text-3xl font-bold tracking-tight mb-3 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Product Not Found</h1>
         <p className="text-slate-500 dark:text-slate-400 mb-6">The product you are trying to checkout does not exist or was not specified.</p>
         <Link href="/">
           <Button>Return Home</Button>
@@ -35,7 +35,7 @@ export default async function CheckoutPage({ searchParams }: { searchParams: Pro
   return (
     <Container className="py-12 md:py-20 max-w-5xl">
       <div className="mb-10 text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-3">Secure Checkout</h1>
+        <h1 className="text-3xl font-bold tracking-tight mb-3 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Secure Checkout</h1>
         <p className="text-slate-500 dark:text-slate-400">Complete your purchase to get instant access.</p>
       </div>
 

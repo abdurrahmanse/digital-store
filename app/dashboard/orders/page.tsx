@@ -22,7 +22,7 @@ export default async function OrdersPage({
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Orders</h1>
+          <h1 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Orders</h1>
           <p className="text-slate-500 dark:text-slate-400 mt-1">Manage and view all customer orders</p>
         </div>
       </div>

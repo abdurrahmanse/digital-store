@@ -23,7 +23,7 @@ export default async function OrderSuccessPage({ searchParams }: { searchParams:
   if (!order || order.items.length === 0) {
     return (
       <Container className="py-16 md:py-24 text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-3">Order Not Found</h1>
+        <h1 className="text-3xl font-bold tracking-tight mb-3 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Order Not Found</h1>
         <p className="text-slate-500 dark:text-slate-400 mb-6">We couldn't find the details for this order.</p>
         <Link href="/">
           <Button>Return Home</Button>
@@ -41,7 +41,7 @@ export default async function OrderSuccessPage({ searchParams }: { searchParams:
         <div className="w-24 h-24 bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-100 dark:border-emerald-900/50 rounded-full flex items-center justify-center mb-8 shadow-sm">
           <CheckCircle2 className="w-12 h-12 text-emerald-500" />
         </div>
-        <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">Payment Successful!</h1>
+        <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Payment Successful!</h1>
         <p className="text-lg text-slate-500 dark:text-slate-400 max-w-lg leading-relaxed">
           Thank you for your purchase. We've sent a receipt to your email. You can access your digital products immediately below.
         </p>
@@ -62,7 +62,7 @@ export default async function OrderSuccessPage({ searchParams }: { searchParams:
               <div className="w-32 h-24 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shrink-0"></div>
             )}
             <div className="flex-1 text-center md:text-left w-full">
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">{product.name}</h3>
+              <h3 className="text-xl font-bold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">{product.name}</h3>
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-5">Lifetime Access</p>
               
               <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-4 border border-slate-200 dark:border-slate-800 flex items-center justify-between w-full">

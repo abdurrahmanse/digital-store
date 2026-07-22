@@ -33,7 +33,7 @@ export async function UserOverview() {
   return (
     <div className="max-w-5xl mx-auto space-y-8 md:space-y-10">
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Welcome back, {firstName}!</h1>
+        <h1 className="text-2xl md:text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Welcome back, {firstName}!</h1>
         <p className="text-slate-500 dark:text-slate-400 mt-1">Manage your purchases and account settings.</p>
       </div>
 
@@ -49,7 +49,7 @@ export async function UserOverview() {
       </div>
 
       <div>
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-5">Recent Purchases</h2>
+        <h2 className="text-xl font-semibold mb-5 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Recent Purchases</h2>
         <Card className="border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden rounded-2xl">
           <div className="divide-y divide-slate-100 dark:divide-slate-800">
             {recentOrders.length === 0 ? (
@@ -72,7 +72,7 @@ export async function UserOverview() {
                       )}
                       
                       <div>
-                        <h3 className="font-semibold text-slate-900 dark:text-white">{product.name}</h3>
+                        <h3 className="font-semibold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">{product.name}</h3>
                         <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
                           Purchased on {new Date(order.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                         </p>

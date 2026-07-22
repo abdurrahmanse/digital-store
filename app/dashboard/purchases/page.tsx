@@ -15,7 +15,7 @@ export default async function PurchasesPage() {
   return (
     <div className="max-w-4xl space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">My Purchases</h1>
+        <h1 className="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">My Purchases</h1>
         <p className="text-slate-500 dark:text-slate-400 mt-1">Access your downloads and license keys.</p>
       </div>
 

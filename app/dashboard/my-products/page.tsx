@@ -46,7 +46,7 @@ export default async function MyProductsPage() {
       {orderItems.length === 0 ? (
         <div className="text-center py-16 bg-white dark:bg-slate-950 border border-border rounded-xl">
           <Package className="w-12 h-12 text-slate-300 dark:text-slate-700 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-2">No products yet</h3>
+          <h3 className="text-lg font-medium mb-2 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">No products yet</h3>
           <p className="text-slate-500 dark:text-slate-400 mb-6">
             You haven't purchased any digital products yet.
           </p>

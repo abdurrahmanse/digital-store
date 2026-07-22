@@ -43,7 +43,7 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
           </Button>
         </Link>
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Order Details</h1>
+          <h1 className="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Order Details</h1>
           <p className="text-sm text-slate-500">Order #{orderItem.order.id.slice(-8).toUpperCase()}</p>
         </div>
       </div>
@@ -76,7 +76,7 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
             </div>
             
             <div className="flex-1 space-y-2">
-              <h3 className="font-semibold text-lg">{orderItem.product.name}</h3>
+              <h3 className="font-semibold text-lg bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">{orderItem.product.name}</h3>
               <p className="text-sm text-slate-500 line-clamp-2">{orderItem.product.description}</p>
               
               <div className="pt-2 flex items-center justify-between text-sm">

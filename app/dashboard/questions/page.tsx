@@ -19,7 +19,7 @@ export default async function QuestionsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Questions</h1>
+        <h1 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Questions</h1>
         <p className="text-muted-foreground">View and manage customer product questions.</p>
       </div>
 

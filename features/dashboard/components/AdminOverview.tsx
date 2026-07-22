@@ -69,7 +69,7 @@ export async function AdminOverview() {
         {/* Main Content: Recent Orders */}
         <div className="xl:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+            <h2 className="text-lg font-semibold flex items-center gap-2 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
               <Activity className="w-5 h-5 text-slate-400" />
               Recent Orders
             </h2>
@@ -86,7 +86,7 @@ export async function AdminOverview() {
 
         {/* Sidebar Content: Quick Actions */}
         <div className="xl:col-span-1 space-y-4">
-          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
+          <h2 className="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
             Quick Actions
           </h2>
           <div className="grid grid-cols-2 xl:grid-cols-1 gap-3">

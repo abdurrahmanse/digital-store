@@ -5,7 +5,7 @@ export function CheckoutForm() {
   return (
     <div className="space-y-8">
       <section>
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-5 flex items-center gap-3">
+        <h2 className="text-xl font-semibold mb-5 flex items-center gap-3 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
           <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white text-xs">1</span>
           Account Details
         </h2>
@@ -21,7 +21,7 @@ export function CheckoutForm() {
       </section>
 
       <section>
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-5 flex items-center gap-3">
+        <h2 className="text-xl font-semibold mb-5 flex items-center gap-3 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
           <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white text-xs">2</span>
           Payment Method
         </h2>

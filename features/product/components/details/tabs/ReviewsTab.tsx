@@ -83,7 +83,7 @@ export function ReviewsTab({ productId, initialReviews, isLoggedIn }: ReviewsTab
     <div className="space-y-12">
       {/* Reviews List */}
       <div className="space-y-8">
-        <h3 className="text-2xl font-bold">Customer Reviews</h3>
+        <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Customer Reviews</h3>
         
         {reviews.length > 0 ? (
           <div className="space-y-6">
@@ -108,7 +108,7 @@ export function ReviewsTab({ productId, initialReviews, isLoggedIn }: ReviewsTab
         ) : (
           <div className="flex flex-col items-center justify-center py-12 text-center bg-muted/20 rounded-2xl border border-dashed border-border">
             <MessageSquare className="w-12 h-12 text-muted-foreground/30 mb-4" />
-            <h3 className="text-lg font-semibold text-foreground mb-1">No reviews yet</h3>
+            <h3 className="text-lg font-semibold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">No reviews yet</h3>
             <p className="text-muted-foreground max-w-sm">Be the first to share your experience with this product.</p>
           </div>
         )}
@@ -116,7 +116,7 @@ export function ReviewsTab({ productId, initialReviews, isLoggedIn }: ReviewsTab
 
       {/* Write Review Form */}
       <div className="bg-muted/10 p-6 md:p-8 rounded-2xl border border-border">
-        <h3 className="text-xl font-bold mb-6">Write a Review</h3>
+        <h3 className="text-xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Write a Review</h3>
         
         {!isLoggedIn ? (
           <div className="text-center p-6 bg-background rounded-xl border border-border">

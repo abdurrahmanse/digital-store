@@ -40,7 +40,7 @@ export async function FeaturedProducts() {
                 <Sparkles className="w-4 h-4 fill-current" />
                 Featured Selections
               </Badge>
-              <h2 className="text-3xl font-bold tracking-tighter text-foreground md:text-5xl mb-4">
+              <h2 className="text-3xl font-bold tracking-tighter md:text-5xl mb-4 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
                 Staff Picks
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">

@@ -20,7 +20,7 @@ export const contactService = {
     if (process.env.RESEND_API_KEY) {
       await resend.emails.send({
         from: "DigitalStore <onboarding@resend.dev>",
-        to: "hello@digitalstore.com", // Replace with store owner's email
+        to: "learn.abdurrahman@gmail.com", // Replace with store owner's email
         replyTo: email,
         subject: `New Contact Request: ${subject}`,
         html: `

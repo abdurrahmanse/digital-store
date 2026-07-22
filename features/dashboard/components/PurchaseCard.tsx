@@ -46,7 +46,7 @@ export function PurchaseCard({ purchase }: { purchase: Purchase }) {
         <div className="flex justify-between items-start gap-4">
           <div>
             <div className="flex items-center gap-3 mb-1">
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-white truncate">
+              <h3 className="text-lg font-semibold truncate bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
                 {purchase.product.name}
               </h3>
               <span className={`px-2 py-0.5 text-[10px] font-bold tracking-wider rounded-md uppercase ${

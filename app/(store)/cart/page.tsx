@@ -40,7 +40,7 @@ export default function CartPage() {
         <div className="bg-primary/10 p-4 rounded-full mb-6">
           <ShoppingCart className="h-12 w-12 text-primary" />
         </div>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-3">
+        <h1 className="text-3xl font-bold tracking-tight mb-3 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
           Your cart is empty
         </h1>
         <p className="text-slate-500 dark:text-slate-400 mb-8 max-w-md mx-auto">
@@ -59,7 +59,7 @@ export default function CartPage() {
 
   return (
     <Container className="py-12 md:py-20">
-      <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-8">
+      <h1 className="text-3xl font-bold tracking-tight mb-8 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
         Shopping Cart
       </h1>
 
@@ -87,7 +87,7 @@ export default function CartPage() {
                 <div className="flex-1 flex flex-col sm:flex-row justify-between w-full gap-4">
                   <div className="flex-1">
                     <Link href={`/products/${item.slug}`} className="hover:underline">
-                      <h3 className="font-semibold text-base sm:text-lg text-slate-900 dark:text-white line-clamp-2">
+                      <h3 className="font-semibold text-base sm:text-lg line-clamp-2 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
                         {item.name}
                       </h3>
                     </Link>
@@ -136,7 +136,7 @@ export default function CartPage() {
           <div className="sticky top-24">
             <Card className="border-border shadow-sm rounded-2xl bg-muted/30">
               <CardContent className="p-6">
-                <h2 className="text-xl font-semibold mb-6">Order Summary</h2>
+                <h2 className="text-xl font-semibold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Order Summary</h2>
                 
                 <div className="space-y-4 mb-6">
                   <div className="flex justify-between text-muted-foreground">

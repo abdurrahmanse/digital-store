@@ -30,7 +30,7 @@ export function ProductsClient({ allProducts }: { allProducts: any[] }) {
     <Container className="py-12 md:py-20">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">
+          <h1 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
             {searchQuery ? `Search Results for "${searchQuery}"` : "All Products"}
           </h1>
           <p className="text-muted-foreground mt-2">Browse our entire collection of digital products.</p>

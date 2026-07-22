@@ -54,7 +54,7 @@ export default function ContactPage() {
           <Badge className="mb-4 bg-primary/10 hover:bg-primary/20 text-primary border-none px-3 py-1 text-sm inline-flex items-center gap-2">
             <MessageSquare className="w-4 h-4" /> Get in Touch
           </Badge>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">We'd love to hear from you</h1>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">We'd love to hear from you</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             Whether you have a question about our products, need support, or just want to say hi, our team is ready to answer all your questions.
           </p>
@@ -71,9 +71,9 @@ export default function ContactPage() {
                 <Mail className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-semibold text-foreground mb-1">Email Us</h3>
+                <h3 className="font-semibold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Email Us</h3>
                 <p className="text-muted-foreground text-sm mb-2">Our friendly team is here to help.</p>
-                <a href="mailto:hello@digitalstore.com" className="text-indigo-600 dark:text-indigo-400 font-medium hover:underline text-sm">hello@digitalstore.com</a>
+                <a href="mailto:learn.abdurrahman@gmail.com" className="text-indigo-600 dark:text-indigo-400 font-medium hover:underline text-sm">learn.abdurrahman@gmail.com</a>
               </div>
             </div>
 
@@ -82,9 +82,9 @@ export default function ContactPage() {
                 <Phone className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-semibold text-foreground mb-1">Call Us</h3>
+                <h3 className="font-semibold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">WhatsApp Us</h3>
                 <p className="text-muted-foreground text-sm mb-2">Mon-Fri from 8am to 5pm.</p>
-                <a href="tel:+1234567890" className="text-emerald-600 dark:text-emerald-400 font-medium hover:underline text-sm">+1 (234) 567-890</a>
+                <a href="https://wa.me/8801705952160" target="_blank" rel="noopener noreferrer" className="text-emerald-600 dark:text-emerald-400 font-medium hover:underline text-sm">01705952160 WhatsApp</a>
               </div>
             </div>
 
@@ -93,9 +93,9 @@ export default function ContactPage() {
                 <MapPin className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-semibold text-foreground mb-1">Office</h3>
+                <h3 className="font-semibold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Office</h3>
                 <p className="text-muted-foreground text-sm mb-2">Come say hello at our office HQ.</p>
-                <span className="text-foreground font-medium text-sm">100 Smith Street<br/>Collingwood VIC 3066</span>
+                <span className="text-foreground font-medium text-sm">Dhaka, Bangladesh</span>
               </div>
             </div>
 
@@ -104,9 +104,9 @@ export default function ContactPage() {
                 <Clock className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-semibold text-foreground mb-1">Working Hours</h3>
+                <h3 className="font-semibold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Working Hours</h3>
                 <p className="text-muted-foreground text-sm mb-2">When we're available to assist.</p>
-                <span className="text-foreground font-medium text-sm">Mon - Fri: 9:00 AM - 6:00 PM<br/>Sat - Sun: Closed</span>
+                <span className="text-foreground font-medium text-sm">Always Open 24/7</span>
               </div>
             </div>
           </div>
@@ -119,7 +119,7 @@ export default function ContactPage() {
                   <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mb-4">
                     <Send className="w-8 h-8" />
                   </div>
-                  <h2 className="text-2xl font-bold text-foreground">Message Sent!</h2>
+                  <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Message Sent!</h2>
                   <p className="text-muted-foreground max-w-md mx-auto">
                     Thanks for reaching out. We've received your message and will get back to you as soon as possible.
                   </p>
@@ -133,7 +133,7 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <>
-                  <h2 className="text-2xl font-bold text-foreground mb-6">Send us a message</h2>
+                  <h2 className="text-2xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Send us a message</h2>
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">

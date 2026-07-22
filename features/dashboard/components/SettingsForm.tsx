@@ -54,7 +54,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
       {/* Profile Section */}
       <div className="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
         <div className="border-b border-slate-100 dark:border-slate-800 px-6 py-4">
-          <h2 className="text-base font-semibold text-slate-900 dark:text-white">Profile Details</h2>
+          <h2 className="text-base font-semibold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Profile Details</h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Manage your public profile information.</p>
         </div>
         <div className="p-6 space-y-6">
@@ -88,7 +88,7 @@ export function SettingsForm({ user }: SettingsFormProps) {
       {/* Security Section */}
       <div className="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
         <div className="border-b border-slate-100 dark:border-slate-800 px-6 py-4">
-          <h2 className="text-base font-semibold text-slate-900 dark:text-white">Security</h2>
+          <h2 className="text-base font-semibold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Security</h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Update your password to keep your account secure.</p>
         </div>
         <div className="p-6 space-y-6">

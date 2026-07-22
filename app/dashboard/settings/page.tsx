@@ -27,7 +27,7 @@ export default async function SettingsPage() {
   return (
     <div className="max-w-3xl space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Account Settings</h1>
+        <h1 className="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Account Settings</h1>
         <p className="text-slate-500 dark:text-slate-400 mt-1">Manage your account settings and preferences.</p>
       </div>
 

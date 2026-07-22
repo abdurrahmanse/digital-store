@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Form from "next/form";
-import { ShoppingCart, User, Search, Package, MessageSquare, LogOut, LayoutDashboard } from "lucide-react";
+import { ShoppingCart, User, Search, Package, MessageSquare, LogOut, LayoutDashboard, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { SearchBar } from "@/components/shared/SearchBar";
@@ -33,6 +33,10 @@ export async function Header() {
             <Link href="/products" className="transition-colors text-muted-foreground hover:text-foreground flex items-center gap-2 group">
               <Package className="w-4 h-4 group-hover:text-primary transition-colors" />
               Products
+            </Link>
+            <Link href="/about" className="transition-colors text-muted-foreground hover:text-foreground flex items-center gap-2 group">
+              <Info className="w-4 h-4 group-hover:text-primary transition-colors" />
+              About
             </Link>
             <Link href="/contact" className="transition-colors text-muted-foreground hover:text-foreground flex items-center gap-2 group">
               <MessageSquare className="w-4 h-4 group-hover:text-primary transition-colors" />

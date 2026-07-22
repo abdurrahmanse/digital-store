@@ -21,7 +21,7 @@ export default async function CustomerDetailsPage({ params }: { params: Promise<
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Customer Details</h1>
+          <h1 className="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Customer Details</h1>
           <p className="text-slate-500 mt-1">Viewing information for {user.name || "Customer"}</p>
         </div>
         <Link href="/dashboard/customers">

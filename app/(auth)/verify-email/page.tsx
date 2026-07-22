@@ -49,7 +49,7 @@ function VerifyEmailForm() {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">Verify Your Email</h1>
+        <h1 className="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Verify Your Email</h1>
         <p className="text-sm text-muted-foreground mt-2">
           We sent a 6-digit verification code to <strong>{email}</strong>
         </p>

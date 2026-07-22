@@ -28,7 +28,7 @@ export function HeroSection() {
           </FadeIn>
           
           <FadeIn delay={0.2} direction="up">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
               Unlock Your Potential with <br className="hidden sm:inline" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600 dark:from-blue-400 dark:to-violet-400">
                 Premium Digital Tools

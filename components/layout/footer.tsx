@@ -50,7 +50,7 @@ export function Footer() {
           </div>
           
           <div>
-            <h3 className="font-semibold text-slate-900 dark:text-white mb-5">Products</h3>
+            <h3 className="font-semibold mb-5 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Products</h3>
             <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
               <li><Link href="/products?category=subscriptions" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Subscriptions</Link></li>
               <li><Link href="/products?category=software" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Software Licenses</Link></li>
@@ -60,7 +60,7 @@ export function Footer() {
           </div>
           
           <div>
-            <h3 className="font-semibold text-slate-900 dark:text-white mb-5">Company</h3>
+            <h3 className="font-semibold mb-5 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Company</h3>
             <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
               <li><Link href="/about" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About Us</Link></li>
               <li><Link href="/contact" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</Link></li>
@@ -70,7 +70,7 @@ export function Footer() {
           </div>
           
           <div>
-            <h3 className="font-semibold text-slate-900 dark:text-white mb-5">Legal</h3>
+            <h3 className="font-semibold mb-5 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Legal</h3>
             <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
               <li><Link href="/privacy" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Privacy Policy</Link></li>
               <li><Link href="/terms" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Terms of Service</Link></li>

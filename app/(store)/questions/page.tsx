@@ -15,7 +15,7 @@ export default function QuestionsPage() {
           <div className="bg-primary/10 text-primary p-3 rounded-full mb-4">
             <MessageCircleQuestion className="w-8 h-8" />
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Got a Question?</h1>
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Got a Question?</h1>
           <p className="text-muted-foreground max-w-xl mx-auto text-lg">
             We are here to help. Fill out the form below and we'll get back to you as soon as possible.
           </p>

@@ -19,7 +19,7 @@ export function OverviewTab({ description }: { description: string | null }) {
       ) : (
         <div className="flex flex-col items-center justify-center py-16 text-center">
           <FileText className="w-12 h-12 text-muted-foreground/30 mb-4" />
-          <h3 className="text-lg font-semibold text-foreground mb-1">No description available</h3>
+          <h3 className="text-lg font-semibold mb-1 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">No description available</h3>
           <p className="text-muted-foreground">More details about this product will be added soon.</p>
         </div>
       )}

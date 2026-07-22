@@ -35,7 +35,7 @@ export function CategoryFilter({
   return (
     <aside className="w-full lg:w-64 shrink-0 space-y-8">
       <div>
-        <h3 className="font-semibold text-foreground mb-4">Categories</h3>
+        <h3 className="font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Categories</h3>
         <div className="space-y-2">
           {CATEGORIES.map((cat) => (
             <label key={cat} className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer hover:text-foreground transition-colors">
@@ -56,7 +56,7 @@ export function CategoryFilter({
       </div>
       
       <div>
-        <h3 className="font-semibold text-foreground mb-4">Product Type</h3>
+        <h3 className="font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Product Type</h3>
         <div className="space-y-2">
           {PRODUCT_TYPES.map((type) => (
             <label key={type} className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer hover:text-foreground transition-colors">

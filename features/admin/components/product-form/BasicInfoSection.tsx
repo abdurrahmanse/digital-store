@@ -38,7 +38,7 @@ export function BasicInfoSection({ initialData, categories }: BasicInfoSectionPr
       </div>
 
       <div className="space-y-4">
-        <h3 className="font-medium">Product Visibility</h3>
+        <h3 className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Product Visibility</h3>
         <div className="flex items-center justify-between rounded-lg border border-border p-4">
           <div className="space-y-0.5">
             <Label htmlFor="isFeatured" className="text-base">Featured Product</Label>

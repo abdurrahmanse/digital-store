@@ -17,7 +17,7 @@ export function CartItemList({ isCartCheckout, product, cartItems }: CartItemLis
             <div className="w-16 h-16 bg-slate-200 dark:bg-slate-800 rounded-lg shrink-0 border border-slate-200/60 dark:border-slate-700/60"></div>
           )}
           <div>
-            <h3 className="font-medium text-slate-900 dark:text-white line-clamp-2 leading-snug">{product.name}</h3>
+            <h3 className="font-medium line-clamp-2 leading-snug bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">{product.name}</h3>
             <p className="text-sm font-semibold text-primary mt-1">৳{(product.price / 100).toFixed(2)}</p>
           </div>
         </div>
@@ -31,7 +31,7 @@ export function CartItemList({ isCartCheckout, product, cartItems }: CartItemLis
             <div className="w-16 h-16 bg-slate-200 dark:bg-slate-800 rounded-lg shrink-0 border border-slate-200/60 dark:border-slate-700/60"></div>
           )}
           <div className="flex-1">
-            <h3 className="font-medium text-sm text-slate-900 dark:text-white line-clamp-2 leading-snug">{item.name}</h3>
+            <h3 className="font-medium text-sm line-clamp-2 leading-snug bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">{item.name}</h3>
             <div className="flex justify-between items-center mt-1">
               <p className="text-xs text-slate-500 dark:text-slate-400">Qty: {item.quantity}</p>
               <p className="text-sm font-semibold text-primary">৳{((item.price * item.quantity) / 100).toFixed(2)}</p>

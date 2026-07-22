@@ -126,7 +126,7 @@ export function CheckoutSummary({ product }: CheckoutSummaryProps) {
 
   return (
     <div className="sticky top-24">
-      <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-5">Order Summary</h2>
+      <h2 className="text-xl font-semibold mb-5 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Order Summary</h2>
       <Card className="border-slate-200 dark:border-slate-800 shadow-sm bg-slate-50/50 dark:bg-slate-900/50 rounded-2xl">
         <CardContent className="p-6">
           

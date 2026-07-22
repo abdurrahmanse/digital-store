@@ -24,7 +24,7 @@ export function OrderItemCard({ item }: OrderItemCardProps) {
             </div>
           )}
           <div>
-            <h3 className="font-semibold text-lg text-slate-900 dark:text-white">
+            <h3 className="font-semibold text-lg bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
               {item.product.name}
             </h3>
             <div className="text-sm text-slate-500 mt-1 flex items-center gap-2">

@@ -13,7 +13,7 @@ export function ProductInfo({ name, description, productType, whatsIncluded }: P
     <>
       <div className="mb-6">
         <ProductBadge type={productType} className="mb-3 text-primary bg-primary/10 border-transparent text-xs" />
-        <h1 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-4">
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
           {name}
         </h1>
         <p className="text-base text-muted-foreground leading-relaxed">

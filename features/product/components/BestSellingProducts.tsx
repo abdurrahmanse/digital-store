@@ -80,7 +80,7 @@ export async function BestSellingProducts() {
               <Badge variant="secondary" className="mb-4 bg-primary/10 text-primary hover:bg-primary/20 transition-colors border-none">
                 Best Sellers
               </Badge>
-              <h2 className="text-3xl font-bold tracking-tighter text-foreground md:text-5xl mb-4">
+              <h2 className="text-3xl font-bold tracking-tighter md:text-5xl mb-4 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
                 Most Popular Products
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">

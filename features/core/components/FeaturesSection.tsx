@@ -32,7 +32,7 @@ export function FeaturesSection() {
       <Container>
         <FadeIn>
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">Why choose DigitalStore?</h2>
+            <h2 className="text-3xl font-bold tracking-tight md:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Why choose DigitalStore?</h2>
             <p className="text-muted-foreground mt-4 text-lg max-w-2xl mx-auto">We provide the best digital shopping experience with zero compromises.</p>
           </div>
         </FadeIn>
@@ -44,7 +44,7 @@ export function FeaturesSection() {
                 <div className="bg-muted w-14 h-14 rounded-2xl flex items-center justify-center mb-6">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-3">{feature.title}</h3>
+                <h3 className="text-xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">{feature.title}</h3>
                 <p className="text-muted-foreground leading-relaxed flex-1">
                   {feature.description}
                 </p>

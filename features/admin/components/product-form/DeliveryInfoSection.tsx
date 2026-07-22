@@ -11,7 +11,7 @@ type DeliveryInfoSectionProps = {
 export function DeliveryInfoSection({ deliveryType, deliveryInfo, setDeliveryInfo }: DeliveryInfoSectionProps) {
   return (
     <div className="space-y-4 pt-4 border-t border-border">
-      <h3 className="font-medium text-lg">Delivery Information</h3>
+      <h3 className="font-medium text-lg bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">Delivery Information</h3>
       <p className="text-sm text-muted-foreground">
         Configure the digital access details that will be provided to the customer after purchase.
       </p>

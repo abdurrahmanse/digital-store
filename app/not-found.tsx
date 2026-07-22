@@ -5,12 +5,12 @@ export default function NotFound() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 text-center">
       <div className="space-y-6">
-        <h1 className="text-8xl md:text-9xl font-bold text-slate-100 tracking-tighter select-none">
+        <h1 className="text-8xl md:text-9xl font-bold tracking-tighter select-none bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
           404
         </h1>
         
         <div className="space-y-2">
-          <h2 className="text-2xl font-semibold text-slate-900 tracking-tight">
+          <h2 className="text-2xl font-semibold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-500 dark:from-white dark:to-slate-400">
             Page not found
           </h2>
           <p className="text-slate-500 max-w-md mx-auto">

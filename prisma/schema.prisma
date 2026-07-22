@@ -49,6 +49,11 @@ enum ContactMessageStatus {
   RESPONDED
 }
 
+enum QuestionStatus {
+  UNANSWERED
+  ANSWERED
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -62,6 +67,7 @@ model User {
   orders         Order[]
   licenses       License[]
   deviceSessions DeviceSession[]
+  reviews        Review[]
 }
 
 model Category {
@@ -102,6 +108,8 @@ model Product {
 
   orderItems OrderItem[]
   licenses   License[]
+  reviews    Review[]
+  questions  Question[]
 }
 
 model Order {
@@ -196,4 +204,30 @@ model DeviceSession {
   os        String?
   lastLogin DateTime @default(now())
   isActive  Boolean  @default(true)
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int
+  comment   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Question {
+  id        String         @id @default(cuid())
+  email     String
+  question  String         @db.Text
+  status    QuestionStatus @default(UNANSWERED)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
 }

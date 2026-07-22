@@ -3,14 +3,29 @@ import { notFound } from "next/navigation";
 import { ProductGallery } from "@/features/product/components/details/ProductGallery";
 import { ProductInfo } from "@/features/product/components/details/ProductInfo";
 import { ProductCheckoutCard } from "@/features/product/components/details/ProductCheckoutCard";
+import { ProductTabs } from "@/features/product/components/details/ProductTabs";
 import { Container } from "@/components/layout/container";
+import { auth } from "@/auth";
 
 export default async function ProductDetailsPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
+  const session = await auth();
 
   const product = await prisma.product.findUnique({
-    where: { slug }
+    where: { slug },
+    include: {
+      reviews: {
+        include: {
+          user: {
+            select: { name: true }
+          }
+        },
+        orderBy: {
+          createdAt: 'desc'
+        }
+      }
+    }
   });
 
   if (!product) {
@@ -39,7 +54,7 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
         <div className="flex flex-col">
           <ProductInfo 
             name={product.name} 
-            description={product.description || product.shortDescription} 
+            description={product.shortDescription || product.description} 
             productType={product.productType as any} 
             whatsIncluded={whatsIncluded} 
           />
@@ -55,6 +70,13 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
           </div>
         </div>
       </div>
+      
+      <ProductTabs 
+        description={product.description} 
+        productId={product.id}
+        initialReviews={product.reviews as any}
+        isLoggedIn={!!session?.user}
+      />
     </Container>
   );
 }

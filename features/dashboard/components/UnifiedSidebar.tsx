@@ -12,7 +12,9 @@ import {
   Settings,
   FolderTree,
   ShoppingBag,
-  MessageSquare
+  MessageSquare,
+  MessageCircleQuestion,
+  Star
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -24,6 +26,8 @@ const adminLinks = [
   { name: "License Keys", href: "/dashboard/licenses", icon: Key },
   { name: "Customers", href: "/dashboard/customers", icon: Users },
   { name: "Coupons", href: "/dashboard/coupons", icon: Ticket },
+  { name: "Reviews", href: "/dashboard/reviews", icon: Star },
+  { name: "Questions", href: "/dashboard/questions", icon: MessageCircleQuestion },
   { name: "Messages", href: "/dashboard/contacts", icon: MessageSquare },
   { name: "Settings", href: "/dashboard/settings", icon: Settings },
 ];

@@ -1,11 +1,18 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 import { CheckoutForm } from "@/features/checkout/components/CheckoutForm";
 import { CheckoutSummary } from "@/features/checkout/components/CheckoutSummary";
 import { Container } from "@/components/layout/container";
+import { auth } from "@/auth";
 
 export default async function CheckoutPage({ searchParams }: { searchParams: Promise<{ productId?: string }> }) {
+  const session = await auth();
+  if (!session?.user) {
+    redirect("/login?callbackUrl=/checkout");
+  }
+
   const params = await searchParams;
   const productId = params.productId;
   
@@ -13,7 +20,7 @@ export default async function CheckoutPage({ searchParams }: { searchParams: Pro
     where: { id: productId }
   }) : null;
 
-  if (!product) {
+  if (productId && !product) {
     return (
       <Container className="py-12 md:py-20 text-center">
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-3">Product Not Found</h1>

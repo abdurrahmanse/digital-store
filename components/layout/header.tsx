@@ -7,6 +7,7 @@ import { SearchBar } from "@/components/shared/SearchBar";
 import { auth, signOut } from "@/auth";
 import { MobileMenu } from "./mobile-menu";
 import { Container } from "./container";
+import { CartBadge } from "@/components/cart/CartBadge";
 
 export async function Header() {
   const session = await auth();
@@ -41,12 +42,7 @@ export async function Header() {
 
           <div className="flex items-center space-x-1 pl-2 border-l border-border">
             <ThemeToggle />
-            <Link href="/checkout">
-              <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground hover:bg-muted rounded-full">
-                <ShoppingCart className="h-5 w-5" />
-                <span className="sr-only">Cart</span>
-              </Button>
-            </Link>
+            <CartBadge />
             {session?.user ? (
               <div className="flex items-center space-x-1">
                 <Link href="/dashboard">

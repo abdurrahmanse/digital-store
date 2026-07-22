@@ -1,52 +1,72 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Shield, Zap } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { PriceDisplay } from "@/components/shared/PriceDisplay";
+import { useCartStore } from "@/store/cartStore";
+import { toast } from "sonner";
+import { useState } from "react";
 
 interface ProductCheckoutCardProps {
   productId: string;
   price: number;
   discountPrice: number | null;
+  name?: string;
+  imageUrl?: string | null;
+  slug?: string;
 }
 
-export function ProductCheckoutCard({ productId, price, discountPrice }: ProductCheckoutCardProps) {
+export function ProductCheckoutCard({ productId, price, discountPrice, name, imageUrl, slug }: ProductCheckoutCardProps) {
+  const addItem = useCartStore((state) => state.addItem);
+  const [isAdding, setIsAdding] = useState(false);
+
+  const handleAddToCart = () => {
+    if (!name || !slug) return;
+    
+    setIsAdding(true);
+    addItem({
+      id: productId,
+      name,
+      price: discountPrice || price,
+      imageUrl: imageUrl || null,
+      slug,
+    });
+    
+    toast.success(`${name} added to cart!`);
+    setTimeout(() => setIsAdding(false), 500);
+  };
+
   return (
-    <>
-      <div className="mb-8">
-        <div className="flex items-end gap-3 mb-2">
-          <PriceDisplay price={price} originalPrice={discountPrice || undefined} size="lg" />
-          {discountPrice && (
-            <Badge variant="destructive" className="mb-2 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 border-transparent">
-              Sale
-            </Badge>
-          )}
-        </div>
-        <p className="text-sm text-muted-foreground flex items-center gap-1.5 mt-2">
-          <Shield className="w-4 h-4 text-emerald-500" /> Secure payment via Stripe
-        </p>
+    <div className="flex flex-col gap-6">
+      <div className="flex items-center gap-3">
+        <PriceDisplay price={price} originalPrice={discountPrice || undefined} size="lg" />
+        {discountPrice && (
+          <Badge variant="destructive" className="bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 border-transparent">
+            Sale
+          </Badge>
+        )}
       </div>
 
-      <Card className="mb-10 border-border shadow-sm rounded-2xl overflow-hidden bg-muted/30">
-        <CardContent className="p-6">
-          <div className="flex flex-col gap-4">
-            <Link href={`/checkout?productId=${productId}`} className="w-full">
-              <Button size="lg" className="w-full text-base font-semibold h-14 rounded-xl shadow-sm">
-                Buy Now — ৳{(price / 100).toFixed(2)}
-              </Button>
-            </Link>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-border mt-2">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground font-medium">
-                <Zap className="w-4 h-4 text-amber-500" /> Instant Delivery
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground font-medium">
-                <Shield className="w-4 h-4 text-primary" /> Genuine Guarantee
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </>
+      <div className="flex flex-col sm:flex-row gap-3">
+        <Link href={`/checkout?productId=${productId}`} className="flex-1">
+          <Button size="lg" className="w-full text-base font-semibold h-12 rounded-xl shadow-sm">
+            Buy Now
+          </Button>
+        </Link>
+        
+        <Button 
+          size="lg" 
+          variant="outline" 
+          className="flex-1 text-base font-semibold h-12 rounded-xl"
+          onClick={handleAddToCart}
+          disabled={isAdding}
+        >
+          <ShoppingCart className="w-5 h-5 mr-2" /> 
+          {isAdding ? "Added!" : "Add to Cart"}
+        </Button>
+      </div>
+    </div>
   );
 }

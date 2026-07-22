@@ -11,14 +11,14 @@ export const checkoutController = {
       }
 
       const body = await req.json();
-      const { productId, email } = body;
+      const { items, email } = body;
 
-      if (!productId || !email) {
+      if (!items || !items.length || !email) {
         return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
       }
 
       const result = await checkoutService.createOrder({ 
-        productId, 
+        items, 
         email, 
         userId: session.user.id 
       });

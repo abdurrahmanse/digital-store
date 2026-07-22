@@ -47,7 +47,10 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
             <ProductCheckoutCard 
               productId={product.id} 
               price={product.price} 
-              discountPrice={product.discountPrice} 
+              discountPrice={product.discountPrice}
+              name={product.name}
+              imageUrl={product.imageUrl}
+              slug={product.slug}
             />
           </div>
         </div>

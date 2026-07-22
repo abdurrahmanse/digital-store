@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle2, Download, Copy, ArrowRight } from "lucide-react";
+import { CheckCircle2, Download, Copy, ArrowRight, Package } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { Container } from "@/components/layout/container";
 
@@ -16,8 +16,7 @@ export default async function OrderSuccessPage({ searchParams }: { searchParams:
         include: {
           product: true
         }
-      },
-      licenses: true
+      }
     }
   }) : null;
 
@@ -35,7 +34,6 @@ export default async function OrderSuccessPage({ searchParams }: { searchParams:
 
   const primaryItem = order.items[0];
   const product = primaryItem.product;
-  const license = order.licenses.find(l => l.productId === product.id);
 
   return (
     <Container className="py-16 md:py-24 max-w-3xl">
@@ -67,24 +65,20 @@ export default async function OrderSuccessPage({ searchParams }: { searchParams:
               <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">{product.name}</h3>
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-5">Lifetime Access</p>
               
-              {license && (
-                <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-3.5 border border-slate-200 dark:border-slate-800 flex items-center justify-between w-full">
-                  <div className="text-left">
-                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">License Key</p>
-                    <code className="text-slate-900 dark:text-white font-mono font-bold tracking-wider text-sm md:text-base">{license.key}</code>
-                  </div>
-                  <Button variant="ghost" size="sm" className="text-slate-600 dark:text-slate-300 hover:text-primary bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-                    <Copy className="w-4 h-4 md:mr-1.5" /> <span className="hidden md:inline">Copy</span>
-                  </Button>
+              <div className="bg-slate-50 dark:bg-slate-950 rounded-xl p-4 border border-slate-200 dark:border-slate-800 flex items-center justify-between w-full">
+                <div className="text-left">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">Your product access details are ready.</p>
                 </div>
-              )}
+              </div>
             </div>
           </div>
           
           <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row gap-4">
-            <Button size="lg" className="w-full flex-1 h-14 rounded-xl text-base font-semibold shadow-sm text-white" disabled={!product.fileUrl}>
-              <Download className="w-5 h-5 mr-2" /> {product.fileUrl ? "Download Assets" : "No Download Available"}
-            </Button>
+            <Link href="/dashboard/my-products" className="w-full flex-1">
+              <Button size="lg" className="w-full h-14 rounded-xl text-base font-semibold shadow-sm text-white">
+                <Package className="w-5 h-5 mr-2" /> View My Products
+              </Button>
+            </Link>
             <Button size="lg" variant="outline" className="w-full flex-1 h-14 rounded-xl text-base font-semibold bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 dark:hover:bg-slate-800">
               View Documentation
             </Button>

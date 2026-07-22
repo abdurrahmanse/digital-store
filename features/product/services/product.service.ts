@@ -44,6 +44,8 @@ export const productService = {
     const categoryId = formData.get("categoryId") as string;
     const productType = formData.get("productType") as ProductType;
     const deliveryType = formData.get("deliveryType") as DeliveryType;
+    const deliveryInfoStr = formData.get("deliveryInfo") as string;
+    const deliveryInfo = deliveryInfoStr ? JSON.parse(deliveryInfoStr) : null;
     const status = formData.get("status") as ProductStatus;
     const stockStr = formData.get("stock") as string;
     const isFeatured = formData.get("isFeatured") === "on" || formData.get("isFeatured") === "true";
@@ -74,6 +76,7 @@ export const productService = {
         categoryId: categoryId || null,
         productType,
         deliveryType,
+        deliveryInfo,
         status,
         stock,
         isActive: status === ProductStatus.PUBLISHED,
@@ -95,6 +98,8 @@ export const productService = {
     const categoryId = formData.get("categoryId") as string;
     const productType = formData.get("productType") as ProductType;
     const deliveryType = formData.get("deliveryType") as DeliveryType;
+    const deliveryInfoStr = formData.get("deliveryInfo") as string;
+    const deliveryInfo = deliveryInfoStr ? JSON.parse(deliveryInfoStr) : null;
     const status = formData.get("status") as ProductStatus;
     const stockStr = formData.get("stock") as string;
     const isFeatured = formData.get("isFeatured") === "on" || formData.get("isFeatured") === "true";
@@ -141,6 +146,7 @@ export const productService = {
         categoryId: categoryId || null,
         productType,
         deliveryType,
+        deliveryInfo,
         status,
         stock,
         isActive: status === ProductStatus.PUBLISHED,

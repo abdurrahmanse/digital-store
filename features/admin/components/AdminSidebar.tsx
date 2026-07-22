@@ -19,7 +19,6 @@ const links = [
   { name: "Products", href: "/admin/products", icon: Package },
   { name: "Categories", href: "/admin/categories", icon: FolderTree },
   { name: "Orders", href: "/admin/orders", icon: ShoppingCart },
-  { name: "License Keys", href: "/admin/licenses", icon: Key },
   { name: "Customers", href: "/admin/users", icon: Users },
   { name: "Coupons", href: "/admin/coupons", icon: Ticket },
   { name: "Settings", href: "/admin/settings", icon: Settings },

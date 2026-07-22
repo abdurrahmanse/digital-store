@@ -24,20 +24,7 @@ export async function getUserPurchases(userId: string) {
     },
   });
 
-  // Since a user might have licenses generated for their purchases, fetch those too
-  const licenses = await prisma.license.findMany({
-    where: {
-      userId: userId,
-    },
-  });
-
-  // Map the licenses back to the corresponding order items based on productId and orderId
-  // Note: If a user buys the same product multiple times, this requires mapping by orderId
   const purchases = orderItems.map((item) => {
-    const license = licenses.find(
-      (l) => l.productId === item.productId && l.orderId === item.orderId
-    );
-
     return {
       id: item.id, // OrderItem ID
       purchaseDate: item.order.createdAt,
@@ -51,7 +38,8 @@ export async function getUserPurchases(userId: string) {
         imageUrl: item.product.imageUrl,
       },
       status: item.order.status,
-      licenseKey: license?.key || null,
+      deliveryType: item.deliveryType || item.product.deliveryType,
+      deliveryInfo: item.deliveryInfo || item.product.deliveryInfo,
     };
   });
 

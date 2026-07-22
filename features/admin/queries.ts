@@ -160,28 +160,7 @@ export async function getAllOrders({ page = 1, limit = 10 } = {}) {
   };
 }
 
-export async function getAllLicenses({ page = 1, limit = 10 } = {}) {
-  const skip = (page - 1) * limit;
-  const [licenses, total] = await Promise.all([
-    prisma.license.findMany({
-      skip,
-      take: limit,
-      orderBy: { createdAt: "desc" },
-      include: {
-        product: { select: { name: true } },
-        user: { select: { email: true, name: true } },
-        order: { select: { id: true, amount: true } }
-      }
-    }),
-    prisma.license.count()
-  ]);
 
-  return {
-    data: licenses,
-    totalPages: Math.ceil(total / limit),
-    currentPage: page,
-  };
-}
 
 export async function getAllUsers({ page = 1, limit = 10 } = {}) {
   const skip = (page - 1) * limit;
@@ -233,8 +212,7 @@ export async function getUserDetails(id: string) {
     include: {
       _count: {
         select: {
-          orders: true,
-          licenses: true
+          orders: true
         }
       },
       deviceSessions: {

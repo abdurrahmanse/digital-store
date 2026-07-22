@@ -13,9 +13,7 @@ async function main() {
 
   // 1. Create Categories
   console.log('Creating categories...');
-  const softwareLicenses = await prisma.category.create({
-    data: { name: 'Software Licenses', slug: 'software-licenses', imageUrl: '/images/cat-software.jpg' }
-  });
+
   const subscriptions = await prisma.category.create({
     data: { name: 'Subscriptions', slug: 'subscriptions', imageUrl: '/images/cat-subscriptions.jpg' }
   });
@@ -41,7 +39,7 @@ async function main() {
       imageUrl: '/images/demo-chatgpt.png',
       categoryId: subscriptions.id,
       productType: ProductType.SUBSCRIPTION,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       isFeatured: true,
@@ -57,7 +55,7 @@ async function main() {
       imageUrl: '/images/demo-claude.png',
       categoryId: subscriptions.id,
       productType: ProductType.SUBSCRIPTION,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       isFeatured: false,
@@ -73,7 +71,7 @@ async function main() {
       imageUrl: '/images/demo-cursor.png',
       categoryId: subscriptions.id,
       productType: ProductType.SUBSCRIPTION,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       isFeatured: true,
@@ -89,7 +87,7 @@ async function main() {
       imageUrl: '/images/demo-gemini.png',
       categoryId: subscriptions.id,
       productType: ProductType.SUBSCRIPTION,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       isFeatured: false,
@@ -105,7 +103,7 @@ async function main() {
       imageUrl: '/images/demo-canva.png',
       categoryId: creativeLearning.id,
       productType: ProductType.SUBSCRIPTION,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       isFeatured: true,
@@ -121,7 +119,7 @@ async function main() {
       imageUrl: '/images/demo-capcut.png',
       categoryId: creativeLearning.id,
       productType: ProductType.SUBSCRIPTION,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       isFeatured: false,
@@ -137,7 +135,7 @@ async function main() {
       imageUrl: '/images/demo-adobe-cc.png',
       categoryId: creativeLearning.id,
       productType: ProductType.SUBSCRIPTION,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       isFeatured: true,
@@ -153,7 +151,7 @@ async function main() {
       imageUrl: '/images/demo-premiere.png',
       categoryId: creativeLearning.id,
       productType: ProductType.SUBSCRIPTION,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       isFeatured: false,
@@ -167,25 +165,23 @@ async function main() {
       price: 6999,
       discountPrice: 5999,
       imageUrl: '/images/demo-m365.png',
-      categoryId: softwareLicenses.id,
       productType: ProductType.SUBSCRIPTION,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       isFeatured: false,
       stock: null
     },
     {
-      name: 'Windows 11 Pro License Key',
+      name: 'Windows 11 Pro',
       slug: 'windows-11-pro',
       shortDescription: 'Lifetime license for Windows 11 Professional.',
       description: 'Upgrade your PC with Windows 11 Pro. Experience enhanced security, productivity tools, and a beautiful new interface. Genuine lifetime license for 1 PC.',
       price: 19900,
       discountPrice: 4900,
       imageUrl: '/images/demo-win11.png',
-      categoryId: softwareLicenses.id,
       productType: ProductType.LICENSE,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.LICENSE_KEY,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       isFeatured: true,

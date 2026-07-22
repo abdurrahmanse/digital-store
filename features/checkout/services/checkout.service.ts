@@ -69,6 +69,10 @@ export const checkoutService = {
       },
     });
 
+    // Auto-complete order since this is a demo without actual payment
+    const { orderService } = await import("@/features/admin/services/order.service");
+    await orderService.updateOrderStatus(order.id, "COMPLETED");
+
     return { success: true, orderId: order.id };
   }
 };

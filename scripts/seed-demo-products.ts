@@ -12,9 +12,7 @@ async function main() {
 
   // 1. Create Categories
   console.log('Creating categories...');
-  const softwareLicenses = await prisma.category.create({
-    data: { name: 'Software Licenses', slug: 'software-licenses', imageUrl: '/images/cat-software.jpg' }
-  });
+
   const subscriptions = await prisma.category.create({
     data: { name: 'Subscriptions', slug: 'subscriptions', imageUrl: '/images/cat-subscriptions.jpg' }
   });
@@ -31,16 +29,15 @@ async function main() {
   console.log('Creating 10 demo products...');
   const products = [
     {
-      name: 'Windows 11 Pro License Key',
+      name: 'Windows 11 Pro',
       slug: 'windows-11-pro',
       shortDescription: 'Instant delivery of genuine Windows 11 Professional license key.',
       description: 'Upgrade your PC with Windows 11 Pro. Experience enhanced security, productivity tools, and a beautiful new interface. Genuine lifetime license for 1 PC.',
       price: 2900,
       discountPrice: 19900,
       imageUrl: '/images/p1.jpg',
-      categoryId: softwareLicenses.id,
       productType: ProductType.LICENSE,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.LICENSE_KEY,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       stock: 100
@@ -53,9 +50,8 @@ async function main() {
       price: 14900,
       discountPrice: null,
       imageUrl: '/images/p2.jpg',
-      categoryId: softwareLicenses.id,
       productType: ProductType.SUBSCRIPTION,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       stock: null
@@ -70,7 +66,7 @@ async function main() {
       imageUrl: '/images/p3.jpg',
       categoryId: webHosting.id,
       productType: ProductType.SUBSCRIPTION,
-      deliveryType: DeliveryType.MANUAL,
+      deliveryType: DeliveryType.ACCOUNT_CREDENTIALS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       stock: null
@@ -85,7 +81,7 @@ async function main() {
       imageUrl: '/images/p1.jpg',
       categoryId: creativeLearning.id,
       productType: ProductType.SUBSCRIPTION,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       stock: 50
@@ -100,7 +96,7 @@ async function main() {
       imageUrl: '/images/p2.jpg',
       categoryId: subscriptions.id,
       productType: ProductType.SUBSCRIPTION,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       stock: null
@@ -115,7 +111,7 @@ async function main() {
       imageUrl: '/images/p3.jpg',
       categoryId: creativeLearning.id,
       productType: ProductType.DOWNLOAD,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       stock: null
@@ -128,9 +124,8 @@ async function main() {
       price: 4900,
       discountPrice: 34900,
       imageUrl: '/images/p1.jpg',
-      categoryId: softwareLicenses.id,
       productType: ProductType.LICENSE,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       stock: 500
@@ -145,7 +140,7 @@ async function main() {
       imageUrl: '/images/p2.jpg',
       categoryId: creativeLearning.id,
       productType: ProductType.SUBSCRIPTION,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       stock: null
@@ -160,7 +155,7 @@ async function main() {
       imageUrl: '/images/p3.jpg',
       categoryId: creativeLearning.id,
       productType: ProductType.DOWNLOAD,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       stock: null
@@ -175,7 +170,7 @@ async function main() {
       imageUrl: '/images/p1.jpg',
       categoryId: subscriptions.id,
       productType: ProductType.SUBSCRIPTION,
-      deliveryType: DeliveryType.INSTANT,
+      deliveryType: DeliveryType.SUBSCRIPTION_ACCESS,
       status: ProductStatus.PUBLISHED,
       isActive: true,
       stock: null

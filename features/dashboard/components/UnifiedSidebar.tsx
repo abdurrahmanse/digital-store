@@ -23,7 +23,6 @@ const adminLinks = [
   { name: "Products", href: "/dashboard/products", icon: Package },
   { name: "Categories", href: "/dashboard/categories", icon: FolderTree },
   { name: "Orders", href: "/dashboard/orders", icon: ShoppingCart },
-  { name: "License Keys", href: "/dashboard/licenses", icon: Key },
   { name: "Customers", href: "/dashboard/customers", icon: Users },
   { name: "Coupons", href: "/dashboard/coupons", icon: Ticket },
   { name: "Reviews", href: "/dashboard/reviews", icon: Star },
@@ -34,6 +33,7 @@ const adminLinks = [
 
 const userLinks = [
   { name: "My Purchases", href: "/dashboard", icon: ShoppingBag, exact: true },
+  { name: "My Products", href: "/dashboard/my-products", icon: Package },
   { name: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 

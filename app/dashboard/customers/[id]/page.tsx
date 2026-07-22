@@ -74,10 +74,7 @@ export default async function CustomerDetailsPage({ params }: { params: Promise<
               <span className="text-slate-500">Total Orders</span>
               <span className="font-bold text-lg">{user._count.orders}</span>
             </div>
-            <div className="flex justify-between items-center pb-4 border-b border-slate-100 dark:border-slate-800">
-              <span className="text-slate-500">Licenses Owned</span>
-              <span className="font-bold text-lg">{user._count.licenses}</span>
-            </div>
+
             <div className="flex justify-between items-center">
               <span className="text-slate-500">Active Sessions</span>
               <Badge variant="outline" className="bg-emerald-50 text-emerald-600 border-emerald-200 dark:bg-emerald-950 dark:text-emerald-400 dark:border-emerald-800">

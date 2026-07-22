@@ -108,7 +108,7 @@ export function CheckoutSummary({ product }: CheckoutSummaryProps) {
         if (res.url) {
           router.push(res.url);
         } else {
-          router.push("/checkout/success");
+          router.push(`/success?orderId=${res.orderId}`);
         }
       } else {
         toast.error(res.error || "Failed to create order");

@@ -21,8 +21,7 @@ export async function UserOverview() {
           include: {
             product: true
           }
-        },
-        licenses: true
+        }
       },
       orderBy: { createdAt: 'desc' }
     });
@@ -62,7 +61,6 @@ export async function UserOverview() {
                 const item = order.items[0]; // Assuming one product per order for simplicity
                 if (!item) return null;
                 const product = item.product;
-                const license = order.licenses.find((l: any) => l.productId === product.id);
 
                 return (
                   <div key={order.id} className="flex flex-col md:flex-row md:items-center justify-between p-5 md:p-6 gap-4 bg-white dark:bg-slate-950 hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
@@ -78,12 +76,6 @@ export async function UserOverview() {
                         <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
                           Purchased on {new Date(order.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                         </p>
-                        {license && (
-                          <div className="mt-2 flex items-center gap-2 text-xs font-mono bg-slate-100 dark:bg-slate-900 px-2 py-1 rounded text-slate-700 dark:text-slate-300 w-fit">
-                            <Key className="w-3 h-3" />
-                            {license.key}
-                          </div>
-                        )}
                       </div>
                     </div>
                     
@@ -91,7 +83,7 @@ export async function UserOverview() {
                       <Button variant="outline" size="sm" className="bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 shadow-sm" disabled={!product.fileUrl}>
                         <Download className="w-4 h-4 mr-2" /> {product.fileUrl ? "Download" : "No file"}
                       </Button>
-                      <Link href={`/success?orderId=${order.id}`}>
+                      <Link href={`/dashboard/my-products`}>
                         <Button variant="ghost" size="icon" className="text-slate-400 hover:text-slate-900 dark:text-white">
                           <ExternalLink className="w-4 h-4" />
                         </Button>

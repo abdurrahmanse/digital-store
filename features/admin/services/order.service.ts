@@ -23,24 +23,15 @@ export const orderService = {
 
     if (newStatus === "COMPLETED" && order.status !== "COMPLETED") {
       for (const item of order.items) {
-        if (item.product.productType === "LICENSE") {
-          const existingLicense = await prisma.license.findFirst({
-            where: {
-              orderId: order.id,
-              productId: item.productId,
+        // Automatically attach delivery info and type to the order item if it has a delivery configuration
+        if (item.product.deliveryInfo) {
+          await prisma.orderItem.update({
+            where: { id: item.id },
+            data: {
+              deliveryType: item.product.deliveryType,
+              deliveryInfo: item.product.deliveryInfo,
             }
           });
-
-          if (!existingLicense) {
-            await prisma.license.create({
-              data: {
-                productId: item.productId,
-                orderId: order.id,
-                userId: order.userId,
-                status: "ASSIGNED",
-              },
-            });
-          }
         }
       }
     }

@@ -29,8 +29,10 @@ enum ProductType {
 }
 
 enum DeliveryType {
-  INSTANT
-  MANUAL
+  LICENSE_KEY
+  ACCOUNT_CREDENTIALS
+  SUBSCRIPTION_ACCESS
+  DOWNLOAD_FILE
 }
 
 enum ProductStatus {
@@ -38,10 +40,7 @@ enum ProductStatus {
   PUBLISHED
 }
 
-enum LicenseStatus {
-  AVAILABLE
-  ASSIGNED
-}
+
 
 enum ContactMessageStatus {
   UNREAD
@@ -65,7 +64,6 @@ model User {
   updatedAt     DateTime  @updatedAt
 
   orders         Order[]
-  licenses       License[]
   deviceSessions DeviceSession[]
   reviews        Review[]
 }
@@ -95,7 +93,8 @@ model Product {
   imagePublicId    String? // Cloudinary Public ID for deleting later
   fileUrl          String? // URL to digital file
   productType      ProductType   @default(DOWNLOAD)
-  deliveryType     DeliveryType  @default(INSTANT)
+  deliveryType     DeliveryType  @default(DOWNLOAD_FILE)
+  deliveryInfo     Json? // Stores static delivery credentials or info
   stock            Int? // Optional for physical or limited items
   status           ProductStatus @default(DRAFT)
   isActive         Boolean       @default(true) // Deprecated: keep for backwards compat temporarily
@@ -107,7 +106,6 @@ model Product {
   category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 
   orderItems OrderItem[]
-  licenses   License[]
   reviews    Review[]
   questions  Question[]
 }
@@ -123,34 +121,20 @@ model Order {
   updatedAt       DateTime    @updatedAt
 
   items    OrderItem[]
-  licenses License[]
 }
 
 model OrderItem {
   id        String  @id @default(cuid())
   orderId   String
   order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  productId String
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  price     Int // Snapshot of price in cents at time of purchase
+  productId    String
+  product      Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
+  price        Int // Snapshot of price in cents at time of purchase
+  deliveryType DeliveryType?
+  deliveryInfo Json? // Snapshot of delivery access info when order is completed
 }
 
-model License {
-  id     String        @id @default(cuid())
-  key    String        @unique @default(uuid())
-  status LicenseStatus @default(AVAILABLE)
 
-  userId String?
-  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
-
-  productId String
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-
-  orderId String?
-  order   Order?  @relation(fields: [orderId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-}
 
 model VerificationToken {
   id        String   @id @default(cuid())

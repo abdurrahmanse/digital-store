@@ -55,7 +55,7 @@ export function CouponsTable({
       totalPages={totalPages}
     >
       {coupons.map((coupon) => (
-        <tr key={coupon.id} className="hover:bg-slate-50/40 transition-colors group">
+        <tr key={coupon.id} className="hover:bg-slate-50/40 dark:hover:bg-slate-800/50 transition-colors group">
           <td className="px-6 py-4">
             <div className="flex items-center gap-2">
               <Ticket className="w-4 h-4 text-slate-400" />

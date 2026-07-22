@@ -64,7 +64,7 @@ export function OrdersTable({
       totalPages={totalPages}
     >
       {filteredOrders.map((order) => (
-        <tr key={order.id} className="hover:bg-slate-50/40 transition-colors group cursor-pointer">
+        <tr key={order.id} className="hover:bg-slate-50/40 dark:hover:bg-slate-800/50 transition-colors group cursor-pointer">
           <td className="px-6 py-4">
             <div className="font-medium text-slate-900 dark:text-white">{order.user?.name || "Unknown"}</div>
             <div className="text-slate-400 text-xs mt-0.5">{order.user?.email || "No email"}</div>

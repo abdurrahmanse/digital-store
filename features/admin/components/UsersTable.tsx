@@ -59,7 +59,7 @@ export function UsersTable({
       totalPages={totalPages}
     >
       {users.map((user) => (
-        <tr key={user.id} className="hover:bg-slate-50/40 transition-colors group">
+        <tr key={user.id} className="hover:bg-slate-50/40 dark:hover:bg-slate-800/50 transition-colors group">
           <td className="px-6 py-4">
             <div className="font-medium text-slate-900 dark:text-white">{user.name || "Unknown"}</div>
             <div className="text-slate-400 text-xs mt-0.5">{user.email}</div>

@@ -38,7 +38,7 @@ export function CategoriesTable({ categories }: { categories: Category[] }) {
       emptyMessage="No categories found."
     >
       {categories.map((category) => (
-        <tr key={category.id} className="hover:bg-slate-50/40 transition-colors group">
+        <tr key={category.id} className="hover:bg-slate-50/40 dark:hover:bg-slate-800/50 transition-colors group">
           <td className="px-6 py-4">
             <div className="flex items-center gap-3">
               {category.imageUrl ? (

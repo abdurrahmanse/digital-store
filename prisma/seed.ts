@@ -196,8 +196,8 @@ async function main() {
     console.log('Creating Bangladeshi demo users...');
     
     const demoUsers = [
-      { name: 'Abdur Rahman', email: 'abdur.rahman@example.com' },
-      { name: 'Tanvir Hasan', email: 'tanvir.hasan@example.com' },
+      { name: 'Abdur Rahman', email: 'learn.abdurrahman@gmail.com', role: 'ADMIN' },
+      { name: 'Tanvir Hasan', email: 'tanvir.hasan@example.com', role: 'USER' },
       { name: 'Mahmudul Hasan', email: 'mahmudul.hasan@example.com' },
       { name: 'Nusrat Jahan', email: 'nusrat.jahan@example.com' },
       { name: 'Mehedi Hasan', email: 'mehedi.hasan@example.com' },
@@ -212,12 +212,14 @@ async function main() {
           name: user.name,
           password: hashedPassword,
           emailVerified: new Date(),
+          role: user.role === 'ADMIN' ? 'ADMIN' : 'USER',
         },
         create: {
           name: user.name,
           email: user.email,
           password: hashedPassword,
           emailVerified: new Date(),
+          role: user.role === 'ADMIN' ? 'ADMIN' : 'USER',
         },
       });
     }

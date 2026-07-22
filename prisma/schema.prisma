@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -79,8 +79,8 @@ model Product {
   id               String        @id @default(cuid())
   name             String
   slug             String        @unique
-  shortDescription String        @db.Text
-  description      String        @db.Text
+  shortDescription String
+  description      String
   whatsIncluded    Json? // Array of strings
   gallery          Json? // Array of strings (image URLs)
   price            Int // Stored in cents
@@ -178,7 +178,7 @@ model ContactMessage {
   lastName  String
   email     String
   subject   String
-  message   String               @db.Text
+  message   String
   status    ContactMessageStatus @default(UNREAD)
   createdAt DateTime             @default(now())
   updatedAt DateTime             @updatedAt

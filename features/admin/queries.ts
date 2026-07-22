@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 
 export async function getDashboardStats() {
-  const [totalRevenueResult, salesCount, activeUsers, totalProducts, pendingOrders] = await Promise.all([
+  const [totalRevenueResult, salesCount, activeUsers, totalProducts, pendingOrders, activeSubscriptions] = await Promise.all([
     prisma.order.aggregate({
       _sum: {
         amount: true,
@@ -21,6 +21,12 @@ export async function getDashboardStats() {
       where: {
         status: "PENDING"
       }
+    }),
+    prisma.orderItem.count({
+      where: {
+        order: { status: "COMPLETED" },
+        product: { productType: "SUBSCRIPTION" }
+      }
     })
   ]);
 
@@ -31,7 +37,8 @@ export async function getDashboardStats() {
     salesCount,
     activeUsers,
     totalProducts,
-    pendingOrders
+    pendingOrders,
+    activeSubscriptions
   };
 }
 

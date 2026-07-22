@@ -22,7 +22,6 @@ export default async function MyProductsPage() {
     where: {
       order: {
         userId: session.user.id,
-        status: "COMPLETED",
       }
     },
     include: {
@@ -62,25 +61,39 @@ export default async function MyProductsPage() {
             // Use snapshot info if available, fallback to current product info
             const deliveryType = item.deliveryType || item.product.deliveryType;
             const deliveryInfo = (item.deliveryInfo || item.product.deliveryInfo) as any;
+            const isCompleted = item.order.status === "COMPLETED";
 
             return (
               <div key={item.id} className="bg-white dark:bg-slate-950 rounded-xl border border-border p-6 shadow-sm flex flex-col">
                 <div className="flex justify-between items-start mb-4 pb-4 border-b border-border">
-                  <div>
-                    <h3 className="font-semibold text-lg text-slate-900 dark:text-white">
-                      {item.product.name}
-                    </h3>
-                    <div className="text-sm text-slate-500 mt-1 flex items-center gap-2">
-                      <Clock className="w-3.5 h-3.5" />
-                      Purchased on {new Date(item.order.createdAt).toLocaleDateString()}
+                  <div className="flex gap-4 items-center">
+                    {item.product.imageUrl ? (
+                      <img src={item.product.imageUrl} alt={item.product.name} className="w-14 h-14 rounded-lg object-cover bg-slate-100 dark:bg-slate-900 border border-border shrink-0" />
+                    ) : (
+                      <div className="w-14 h-14 rounded-lg bg-slate-100 dark:bg-slate-900 border border-border flex items-center justify-center shrink-0">
+                        <Package className="w-6 h-6 text-slate-400" />
+                      </div>
+                    )}
+                    <div>
+                      <h3 className="font-semibold text-lg text-slate-900 dark:text-white">
+                        {item.product.name}
+                      </h3>
+                      <div className="text-sm text-slate-500 mt-1 flex items-center gap-2">
+                        <Clock className="w-3.5 h-3.5" />
+                        Purchased on {new Date(item.order.createdAt).toLocaleDateString()}
+                      </div>
                     </div>
                   </div>
-                  <StatusBadge status="COMPLETED" />
+                  <StatusBadge status={item.order.status} />
                 </div>
 
                 <div className="flex-1 space-y-4">
-                  {!deliveryInfo ? (
-                    <div className="text-sm text-amber-600 bg-amber-50 dark:bg-amber-950/30 p-3 rounded-lg border border-amber-200 dark:border-amber-900">
+                  {!isCompleted ? (
+                    <div className="text-sm text-blue-600 bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg border border-blue-200 dark:border-blue-900">
+                      Your order is currently <strong>{item.order.status}</strong>. Delivery information will be displayed here once your payment is confirmed and the order is completed.
+                    </div>
+                  ) : !deliveryInfo ? (
+                    <div className="text-sm text-amber-600 bg-amber-50 dark:bg-amber-950/30 p-4 rounded-lg border border-amber-200 dark:border-amber-900">
                       Delivery information is not available yet. Please contact support if this persists.
                     </div>
                   ) : (

@@ -8,6 +8,7 @@ import { auth, signOut } from "@/auth";
 import { MobileMenu } from "./mobile-menu";
 import { Container } from "./container";
 import { CartBadge } from "@/components/cart/CartBadge";
+import { HeaderLogout } from "./header-logout";
 
 export async function Header() {
   const session = await auth();
@@ -55,15 +56,7 @@ export async function Header() {
                     <span className="sr-only">Dashboard</span>
                   </Button>
                 </Link>
-                <form action={async () => {
-                  "use server";
-                  await signOut({ redirectTo: "/login" });
-                }}>
-                  <Button type="submit" variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground hover:bg-muted rounded-full" title="Logout">
-                    <LogOut className="h-5 w-5" />
-                    <span className="sr-only">Logout</span>
-                  </Button>
-                </form>
+                <HeaderLogout />
               </div>
             ) : (
               <Link href="/login">

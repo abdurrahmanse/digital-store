@@ -1,29 +1,13 @@
-"use server";
-
 import { Resend } from "resend";
 import { prisma } from "@/lib/prisma";
-import { ContactSchema } from "@/features/contact/validations/contact";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function sendContactEmail(formData: FormData) {
-  const validatedFields = ContactSchema.safeParse({
-    firstName: formData.get("firstName"),
-    lastName: formData.get("lastName"),
-    email: formData.get("email"),
-    subject: formData.get("subject"),
-    message: formData.get("message"),
-  });
+export const contactService = {
+  async sendContactMessage(data: { firstName: string; lastName: string; email: string; subject: string; message: string; }) {
+    const { firstName, lastName, email, subject, message } = data;
 
-  if (!validatedFields.success) {
-    return { success: false, error: validatedFields.error.issues[0].message };
-  }
-
-  const { firstName, lastName, email, subject, message } = validatedFields.data;
-
-  try {
-    // 1. Save to Database
-    await prisma.contactMessage.create({
+    const contactMsg = await prisma.contactMessage.create({
       data: {
         firstName,
         lastName,
@@ -33,7 +17,6 @@ export async function sendContactEmail(formData: FormData) {
       },
     });
 
-    // 2. Send email notification
     if (process.env.RESEND_API_KEY) {
       await resend.emails.send({
         from: "DigitalStore <onboarding@resend.dev>",
@@ -51,9 +34,21 @@ export async function sendContactEmail(formData: FormData) {
       });
     }
 
+    return { success: true, id: contactMsg.id };
+  },
+
+  async markMessageAsRead(id: string) {
+    await prisma.contactMessage.update({
+      where: { id },
+      data: { status: "READ" },
+    });
     return { success: true };
-  } catch (error) {
-    console.error("Error sending contact email:", error);
-    return { success: false, error: "Failed to process your request." };
+  },
+
+  async deleteMessage(id: string) {
+    await prisma.contactMessage.delete({
+      where: { id },
+    });
+    return { success: true };
   }
-}
+};

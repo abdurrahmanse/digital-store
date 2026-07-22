@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { verifyOTPAndResetPassword } from "@/features/auth/actions/otp";
+
 
 function VerifyOTPForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,16 +20,26 @@ function VerifyOTPForm() {
     setError(null);
     
     const formData = new FormData(e.currentTarget);
-    formData.append("email", email);
+    const token = formData.get("token") as string;
+    const password = formData.get("password") as string;
     
-    const res = await verifyOTPAndResetPassword(formData);
-    
-    setIsLoading(false);
-    
-    if (res.success) {
-      router.push("/login?reset=success");
-    } else {
-      setError(res.error || "Failed to verify code");
+    try {
+      const response = await fetch("/api/auth/otp/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, token, password })
+      });
+      const res = await response.json();
+      
+      if (response.ok) {
+        router.push("/login?reset=success");
+      } else {
+        setError(res.error || "Failed to verify code");
+      }
+    } catch (err) {
+      setError("An unexpected error occurred");
+    } finally {
+      setIsLoading(false);
     }
   };
 

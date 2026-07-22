@@ -1,9 +1,13 @@
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { Lock, ShieldCheck } from "lucide-react";
-import { createOrder } from "@/features/checkout/actions";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 
 interface CheckoutSummaryProps {
   product: {
@@ -15,7 +19,41 @@ interface CheckoutSummaryProps {
 }
 
 export function CheckoutSummary({ product }: CheckoutSummaryProps) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const priceFormatted = (product.price / 100).toFixed(2);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    
+    const formData = new FormData(e.currentTarget);
+    const productId = formData.get("productId") as string;
+    
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId })
+      });
+      
+      const res = await response.json();
+      
+      if (response.ok) {
+        if (res.url) {
+          router.push(res.url);
+        } else {
+          router.push("/checkout/success");
+        }
+      } else {
+        toast.error(res.error || "Failed to create order");
+      }
+    } catch (err) {
+      toast.error("An unexpected error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="sticky top-24">
@@ -56,11 +94,11 @@ export function CheckoutSummary({ product }: CheckoutSummaryProps) {
             </div>
           </div>
 
-          <form id="checkout-form" action={createOrder} className="w-full">
+          <form id="checkout-form" onSubmit={handleSubmit} className="w-full">
             <input type="hidden" name="productId" value={product.id} />
-            <SubmitButton size="lg" className="w-full h-14 rounded-xl text-base font-semibold shadow-sm text-white" loadingText={`Paying ৳${priceFormatted}...`}>
-              <Lock className="w-4 h-4 mr-2" /> Pay ৳{priceFormatted}
-            </SubmitButton>
+            <Button type="submit" disabled={loading} size="lg" className="w-full h-14 rounded-xl text-base font-semibold shadow-sm text-white">
+              <Lock className="w-4 h-4 mr-2" /> {loading ? `Paying ৳${priceFormatted}...` : `Pay ৳${priceFormatted}`}
+            </Button>
           </form>
           
           <p className="text-xs text-center text-slate-500 dark:text-slate-400 mt-5 flex items-center justify-center gap-1.5 font-medium">

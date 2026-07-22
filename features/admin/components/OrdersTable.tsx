@@ -1,6 +1,5 @@
 "use client";
 
-import { updateOrderStatus } from "@/features/admin/actions/orders";
 import { OrderStatus } from "@prisma/client";
 import { toast } from "sonner";
 import { useTransition, useState } from "react";
@@ -94,8 +93,18 @@ export function OrdersTable({
                 const newStatus = e.target.value as OrderStatus;
                 startTransition(async () => {
                   try {
-                    await updateOrderStatus(order.id, newStatus);
-                    toast.success(`Order status updated to ${newStatus}`);
+                    const response = await fetch(`/api/orders/${order.id}/status`, {
+                      method: "PATCH",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ status: newStatus }),
+                    });
+                    
+                    if (response.ok) {
+                      toast.success(`Order status updated to ${newStatus}`);
+                    } else {
+                      const result = await response.json();
+                      toast.error(result.error || "Failed to update order status");
+                    }
                   } catch (error) {
                     toast.error("Failed to update order status");
                   }

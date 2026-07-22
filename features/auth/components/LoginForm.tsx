@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { loginUser } from "@/features/auth/actions/auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -21,16 +20,25 @@ export function LoginForm({ registered, reset, verified }: LoginFormProps) {
   async function handleSubmit(formData: FormData) {
     setLoading(true);
     try {
-      const res = await loginUser(formData);
-      if (res?.success) {
+      const email = formData.get("email") as string;
+      const password = formData.get("password") as string;
+      
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
+      
+      const res = await response.json();
+      
+      if (response.ok && res.success) {
         toast.success("Successfully logged in");
         router.push("/dashboard");
       } else {
-        if (res?.error === "unverified") {
-          const email = formData.get("email") as string;
+        if (res.error === "unverified") {
           router.push(`/verify-email?email=${encodeURIComponent(email)}`);
         } else {
-          toast.error(res?.error || "Login failed");
+          toast.error(res.error || "Login failed");
         }
       }
     } catch (err) {

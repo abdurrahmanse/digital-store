@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { updateProfile } from "@/features/auth/actions/user";
 
 interface SettingsFormProps {
   user: {
@@ -22,19 +21,32 @@ export function SettingsForm({ user }: SettingsFormProps) {
     setIsPending(true);
 
     const formData = new FormData(e.currentTarget);
-    const result = await updateProfile(formData);
+    const name = formData.get("name") as string;
+    const password = formData.get("password") as string;
+    
+    try {
+      const response = await fetch("/api/users/profile", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, password })
+      });
+      
+      const result = await response.json();
 
-    if (result.error) {
-      toast.error(result.error);
-    } else {
-      toast.success("Profile updated successfully");
-      const passwordInput = document.getElementById("password") as HTMLInputElement;
-      if (passwordInput) {
-        passwordInput.value = "";
+      if (!response.ok) {
+        toast.error(result.error || "Failed to update profile");
+      } else {
+        toast.success("Profile updated successfully");
+        const passwordInput = document.getElementById("password") as HTMLInputElement;
+        if (passwordInput) {
+          passwordInput.value = "";
+        }
       }
+    } catch (error) {
+      toast.error("An unexpected error occurred");
+    } finally {
+      setIsPending(false);
     }
-
-    setIsPending(false);
   };
 
   return (

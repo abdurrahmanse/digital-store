@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Phone, MapPin, Clock, Send, MessageSquare } from "lucide-react";
-import { sendContactEmail } from "@/features/contact/actions/contact";
 import { Container } from "@/components/layout/container";
 
 export default function ContactPage() {
@@ -17,14 +16,32 @@ export default function ContactPage() {
     setIsSubmitting(true);
     
     const formData = new FormData(e.currentTarget);
-    const res = await sendContactEmail(formData);
+    const data = {
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      email: formData.get("email"),
+      subject: formData.get("subject"),
+      message: formData.get("message")
+    };
     
-    setIsSubmitting(false);
-    if (res.success) {
-      setIsSubmitted(true);
-    } else {
-      // In a real app we'd show an error toast here
-      alert("Failed to send message: " + res.error);
+    try {
+      const response = await fetch("/api/contacts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      
+      const res = await response.json();
+      
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        alert("Failed to send message: " + (res.error || "Unknown error"));
+      }
+    } catch (error) {
+      alert("Failed to send message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

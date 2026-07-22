@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { registerUser } from "@/features/auth/actions/auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -15,16 +14,26 @@ export function RegisterForm() {
   async function handleSubmit(formData: FormData) {
     setLoading(true);
     try {
-      const res = await registerUser(formData);
-      if (res?.success) {
+      const name = formData.get("name") as string;
+      const email = formData.get("email") as string;
+      const password = formData.get("password") as string;
+      
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password })
+      });
+      
+      const res = await response.json();
+      
+      if (response.ok) {
         if (res.pendingVerification) {
-          const email = formData.get("email") as string;
           router.push(`/verify-email?email=${encodeURIComponent(email)}`);
         } else {
           router.push("/login?registered=true");
         }
       } else {
-        toast.error(res?.error || "Registration failed");
+        toast.error(res.error || "Registration failed");
       }
     } catch (err) {
       toast.error("An unexpected error occurred");

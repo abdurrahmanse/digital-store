@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { generateAndSendOTP } from "@/features/auth/actions/otp";
+
 
 export default function ForgotPasswordPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,14 +20,23 @@ export default function ForgotPasswordPage() {
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     
-    const res = await generateAndSendOTP(formData);
-    
-    setIsLoading(false);
-    
-    if (res.success) {
-      router.push(`/verify-otp?email=${encodeURIComponent(email)}`);
-    } else {
-      setError(res.error || "Failed to send reset code");
+    try {
+      const response = await fetch("/api/auth/otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+      const res = await response.json();
+      
+      if (response.ok) {
+        router.push(`/verify-otp?email=${encodeURIComponent(email)}`);
+      } else {
+        setError(res.error || "Failed to send reset code");
+      }
+    } catch (err) {
+      setError("An unexpected error occurred");
+    } finally {
+      setIsLoading(false);
     }
   };
 

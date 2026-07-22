@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createProduct, updateProduct } from "@/features/admin/actions";
 import { toast } from "sonner";
 import { ProductType, DeliveryType, ProductStatus } from "@prisma/client";
 
@@ -29,14 +28,17 @@ export function ProductForm({ initialData, categories }: ProductFormProps) {
     try {
       const formData = new FormData(e.currentTarget);
       
-      let result;
-      if (isEditing) {
-        result = await updateProduct(initialData.id, formData);
-      } else {
-        result = await createProduct(formData);
-      }
+      const url = isEditing ? `/api/products/${initialData.id}` : "/api/products";
+      const method = isEditing ? "PUT" : "POST";
+      
+      const response = await fetch(url, {
+        method,
+        body: formData, // Sending FormData directly for multipart/form-data
+      });
+      
+      const result = await response.json();
 
-      if (result.success) {
+      if (response.ok) {
         toast.success(isEditing ? "Product updated successfully!" : "Product created successfully!");
         router.push("/dashboard/products");
       } else {

@@ -1,27 +1,48 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { verifyRegistrationOTP } from "@/features/auth/actions/otp";
-import { redirect } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState, Suspense } from "react";
+import { toast } from "sonner";
 
-export default async function VerifyEmailPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-  const { email } = await searchParams;
+function VerifyEmailForm() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email");
+  const [loading, setLoading] = useState(false);
 
-  if (!email || typeof email !== "string") {
-    redirect("/register");
+  if (!email) {
+    router.push("/register");
+    return null;
   }
 
-  async function handleSubmit(formData: FormData) {
-    "use server";
-    const res = await verifyRegistrationOTP(formData);
-    if (res?.success) {
-      redirect("/login?verified=true");
-    } else {
-      console.error(res?.error);
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
+    
+    const formData = new FormData(e.currentTarget);
+    const token = formData.get("token") as string;
+    
+    try {
+      const response = await fetch("/api/auth/otp/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, token, type: "registration" })
+      });
+      
+      const res = await response.json();
+      
+      if (response.ok) {
+        router.push("/login?verified=true");
+      } else {
+        toast.error(res.error || "Verification failed");
+      }
+    } catch (err) {
+      toast.error("An unexpected error occurred");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -34,7 +55,7 @@ export default async function VerifyEmailPage({
         </p>
       </div>
 
-      <form action={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input type="hidden" name="email" value={email} />
         
         <div className="space-y-2">
@@ -50,8 +71,8 @@ export default async function VerifyEmailPage({
           />
         </div>
         
-        <Button type="submit" className="w-full h-12 text-base font-semibold rounded-xl mt-4">
-          Verify Account
+        <Button type="submit" disabled={loading} className="w-full h-12 text-base font-semibold rounded-xl mt-4">
+          {loading ? "Verifying..." : "Verify Account"}
         </Button>
       </form>
 
@@ -62,5 +83,13 @@ export default async function VerifyEmailPage({
         </Link>
       </div>
     </div>
+  );
+}
+
+export default function VerifyEmailPage() {
+  return (
+    <Suspense fallback={<div className="text-center py-10">Loading...</div>}>
+      <VerifyEmailForm />
+    </Suspense>
   );
 }

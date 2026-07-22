@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
 import Link from "next/link";
-import { deleteCustomer } from "@/features/admin/actions/customers";
 import { DataTable } from "@/components/dashboard/DataTable";
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { ActionMenu } from "@/components/dashboard/ActionMenu";
@@ -30,7 +29,13 @@ export function UsersTable({
 }) {
   const handleDelete = async (userId: string) => {
     try {
-      await deleteCustomer(userId);
+      const response = await fetch(`/api/customers/${userId}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        const result = await response.json();
+        return { error: result.error || "Failed to delete customer" };
+      }
       return { success: true };
     } catch (error: any) {
       return { error: error.message || "Failed to delete customer" };

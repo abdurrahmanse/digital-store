@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import Link from "next/link";
-import { deleteProduct } from "@/features/admin/actions";
 import { DataTable } from "@/components/dashboard/DataTable";
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
@@ -32,7 +31,18 @@ export function ProductsTable({
   totalPages: number;
 }) {
   const handleDelete = async (id: string) => {
-    return await deleteProduct(id);
+    try {
+      const response = await fetch(`/api/products/${id}`, {
+        method: "DELETE",
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        return { error: result.error || "Failed to delete product" };
+      }
+      return { success: true };
+    } catch (error: any) {
+      return { error: error.message || "An unexpected error occurred" };
+    }
   };
 
   const header = (

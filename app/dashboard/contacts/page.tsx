@@ -2,8 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { formatDistanceToNow } from "date-fns";
 import { Mail, Check, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { markMessageAsRead, deleteMessage } from "@/features/contact/actions/contact-dashboard";
-import { revalidatePath } from "next/cache";
+import { ContactActions } from "@/features/contact/components/ContactActions";
 
 export const metadata = {
   title: "Messages | Dashboard",
@@ -79,26 +78,7 @@ export default async function ContactsPage() {
                       {formatDistanceToNow(new Date(msg.createdAt), { addSuffix: true })}
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        {msg.status === "UNREAD" && (
-                          <form action={async () => {
-                            "use server";
-                            await markMessageAsRead(msg.id);
-                          }}>
-                            <Button size="icon" variant="ghost" className="h-8 w-8 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20" title="Mark as read">
-                              <Check className="h-4 w-4" />
-                            </Button>
-                          </form>
-                        )}
-                        <form action={async () => {
-                          "use server";
-                          await deleteMessage(msg.id);
-                        }}>
-                          <Button size="icon" variant="ghost" className="h-8 w-8 text-rose-600 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-900/20" title="Delete message">
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </form>
-                      </div>
+                      <ContactActions id={msg.id} isUnread={msg.status === "UNREAD"} />
                     </td>
                   </tr>
                 ))

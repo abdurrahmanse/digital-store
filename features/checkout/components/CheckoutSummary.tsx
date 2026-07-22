@@ -1,13 +1,15 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Lock, ShieldCheck } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { useCartStore } from "@/store/cartStore";
+
+import { CartItemList } from "./CartItemList";
+import { CouponInput } from "./CouponInput";
 
 interface CheckoutSummaryProps {
   product: {
@@ -128,43 +130,11 @@ export function CheckoutSummary({ product }: CheckoutSummaryProps) {
       <Card className="border-slate-200 dark:border-slate-800 shadow-sm bg-slate-50/50 dark:bg-slate-900/50 rounded-2xl">
         <CardContent className="p-6">
           
-          {/* Items Display */}
-          <div className="max-h-[300px] overflow-y-auto mb-6 space-y-4 pr-2">
-            {!isCartCheckout && product && (
-              <div className="flex items-start gap-4">
-                {product.imageUrl ? (
-                  <img src={product.imageUrl} alt={product.name} className="w-16 h-16 rounded-lg shrink-0 object-cover border border-slate-200/60 dark:border-slate-700/60" />
-                ) : (
-                  <div className="w-16 h-16 bg-slate-200 dark:bg-slate-800 rounded-lg shrink-0 border border-slate-200/60 dark:border-slate-700/60"></div>
-                )}
-                <div>
-                  <h3 className="font-medium text-slate-900 dark:text-white line-clamp-2 leading-snug">{product.name}</h3>
-                  <p className="text-sm font-semibold text-primary mt-1">৳{(product.price / 100).toFixed(2)}</p>
-                </div>
-              </div>
-            )}
-
-            {isCartCheckout && cartItems.map((item) => (
-              <div key={item.id} className="flex items-start gap-4">
-                {item.imageUrl ? (
-                  <img src={item.imageUrl} alt={item.name} className="w-16 h-16 rounded-lg shrink-0 object-cover border border-slate-200/60 dark:border-slate-700/60" />
-                ) : (
-                  <div className="w-16 h-16 bg-slate-200 dark:bg-slate-800 rounded-lg shrink-0 border border-slate-200/60 dark:border-slate-700/60"></div>
-                )}
-                <div className="flex-1">
-                  <h3 className="font-medium text-sm text-slate-900 dark:text-white line-clamp-2 leading-snug">{item.name}</h3>
-                  <div className="flex justify-between items-center mt-1">
-                    <p className="text-xs text-slate-500 dark:text-slate-400">Qty: {item.quantity}</p>
-                    <p className="text-sm font-semibold text-primary">৳{((item.price * item.quantity) / 100).toFixed(2)}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-
-            {isCartCheckout && cartItems.length === 0 && (
-              <p className="text-center text-sm text-slate-500 dark:text-slate-400 py-4">Your cart is empty.</p>
-            )}
-          </div>
+          <CartItemList 
+            isCartCheckout={isCartCheckout}
+            product={product}
+            cartItems={cartItems}
+          />
           
           <div className="space-y-3 pt-5 border-t border-slate-200 dark:border-slate-800 mb-6 text-sm">
             <div className="flex justify-between text-slate-600 dark:text-slate-400">
@@ -187,32 +157,14 @@ export function CheckoutSummary({ product }: CheckoutSummaryProps) {
             </div>
           </div>
 
-          <div className="mb-8">
-            <div className="flex gap-2">
-              <Input 
-                placeholder="Coupon Code" 
-                className="bg-white dark:bg-slate-950 h-11 border-slate-200 dark:border-slate-800"
-                value={couponCode}
-                onChange={(e) => setCouponCode(e.target.value)}
-                disabled={!!appliedCoupon || couponLoading}
-              />
-              <Button 
-                type="button" 
-                variant="outline" 
-                className="shrink-0 h-11 bg-white dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-slate-800 dark:text-white"
-                onClick={handleApplyCoupon}
-                disabled={!couponCode || !!appliedCoupon || couponLoading}
-              >
-                {couponLoading ? "..." : (appliedCoupon ? "Applied" : "Apply")}
-              </Button>
-            </div>
-            {appliedCoupon && (
-              <div className="mt-2 text-sm flex items-center justify-between text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 px-3 py-2 rounded-md">
-                <span>Coupon {appliedCoupon.code} applied!</span>
-                <button type="button" onClick={() => { setAppliedCoupon(null); setCouponCode(""); }} className="text-xs hover:underline">Remove</button>
-              </div>
-            )}
-          </div>
+          <CouponInput 
+            couponCode={couponCode}
+            setCouponCode={setCouponCode}
+            appliedCoupon={appliedCoupon}
+            setAppliedCoupon={setAppliedCoupon}
+            couponLoading={couponLoading}
+            handleApplyCoupon={handleApplyCoupon}
+          />
 
           <form id="checkout-form" onSubmit={handleSubmit} className="w-full">
             <Button type="submit" disabled={loading || (isCartCheckout && cartItems.length === 0)} size="lg" className="w-full h-14 rounded-xl text-base font-semibold shadow-sm text-white">

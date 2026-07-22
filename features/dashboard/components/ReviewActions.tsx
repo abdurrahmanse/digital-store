@@ -34,7 +34,7 @@ export function ReviewActions({ id }: { id: string }) {
       <Button 
         size="icon" 
         variant="ghost" 
-        className="h-8 w-8 text-rose-600 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-900/20" 
+        className="h-8 w-8 text-rose-600 dark:text-rose-400 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-900/20" 
         title="Delete review"
         onClick={handleDelete}
         disabled={loading}

@@ -22,6 +22,9 @@ export function CheckoutSummary({ product }: CheckoutSummaryProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [couponCode, setCouponCode] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState<{code: string; discountType: string; discountValue: number} | null>(null);
+  const [couponLoading, setCouponLoading] = useState(false);
   const { items, getTotalPrice, clearCart } = useCartStore();
 
   useEffect(() => {
@@ -33,7 +36,45 @@ export function CheckoutSummary({ product }: CheckoutSummaryProps) {
   
   // Calculate total price based on single product or cart
   const totalPrice = isCartCheckout ? getTotalPrice() : (product?.price || 0);
+  
+  let discountAmount = 0;
+  if (appliedCoupon) {
+    if (appliedCoupon.discountType === "PERCENTAGE") {
+      discountAmount = Math.floor((totalPrice * appliedCoupon.discountValue) / 100);
+    } else {
+      discountAmount = appliedCoupon.discountValue;
+    }
+  }
+  
+  const finalPrice = Math.max(0, totalPrice - discountAmount);
+
   const priceFormatted = (totalPrice / 100).toFixed(2);
+  const discountFormatted = (discountAmount / 100).toFixed(2);
+  const finalPriceFormatted = (finalPrice / 100).toFixed(2);
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) return;
+    setCouponLoading(true);
+    try {
+      const res = await fetch("/api/coupons/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: couponCode })
+      });
+      const data = await res.json();
+      if (res.ok && data.valid) {
+        setAppliedCoupon(data);
+        toast.success("Coupon applied!");
+      } else {
+        toast.error(data.error || "Invalid coupon code");
+        setAppliedCoupon(null);
+      }
+    } catch (err) {
+      toast.error("Error validating coupon");
+    } finally {
+      setCouponLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -49,8 +90,8 @@ export function CheckoutSummary({ product }: CheckoutSummaryProps) {
     
     // Create the payload
     const payload = isCartCheckout 
-      ? { email, items: cartItems.map(item => ({ productId: item.id, quantity: item.quantity })) }
-      : { email, items: [{ productId: product!.id, quantity: 1 }] };
+      ? { email, items: cartItems.map(item => ({ productId: item.id, quantity: item.quantity })), couponCode: appliedCoupon?.code }
+      : { email, items: [{ productId: product!.id, quantity: 1 }], couponCode: appliedCoupon?.code };
     
     try {
       const response = await fetch("/api/orders", {
@@ -130,26 +171,52 @@ export function CheckoutSummary({ product }: CheckoutSummaryProps) {
               <span>Subtotal</span>
               <span>৳{priceFormatted}</span>
             </div>
+            {appliedCoupon && (
+              <div className="flex justify-between text-emerald-600 dark:text-emerald-400 font-medium">
+                <span>Discount ({appliedCoupon.code})</span>
+                <span>-৳{discountFormatted}</span>
+              </div>
+            )}
             <div className="flex justify-between text-slate-600 dark:text-slate-400">
               <span>Tax</span>
               <span>৳0.00</span>
             </div>
             <div className="flex justify-between font-bold text-xl text-slate-900 dark:text-white pt-4 border-t border-slate-200 dark:border-slate-800 mt-2">
               <span>Total</span>
-              <span>৳{priceFormatted}</span>
+              <span>৳{finalPriceFormatted}</span>
             </div>
           </div>
 
           <div className="mb-8">
             <div className="flex gap-2">
-              <Input placeholder="Coupon Code" className="bg-white dark:bg-slate-950 h-11 border-slate-200 dark:border-slate-800" />
-              <Button type="button" variant="outline" className="shrink-0 h-11 bg-white dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-slate-800 dark:text-white">Apply</Button>
+              <Input 
+                placeholder="Coupon Code" 
+                className="bg-white dark:bg-slate-950 h-11 border-slate-200 dark:border-slate-800"
+                value={couponCode}
+                onChange={(e) => setCouponCode(e.target.value)}
+                disabled={!!appliedCoupon || couponLoading}
+              />
+              <Button 
+                type="button" 
+                variant="outline" 
+                className="shrink-0 h-11 bg-white dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-slate-800 dark:text-white"
+                onClick={handleApplyCoupon}
+                disabled={!couponCode || !!appliedCoupon || couponLoading}
+              >
+                {couponLoading ? "..." : (appliedCoupon ? "Applied" : "Apply")}
+              </Button>
             </div>
+            {appliedCoupon && (
+              <div className="mt-2 text-sm flex items-center justify-between text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 px-3 py-2 rounded-md">
+                <span>Coupon {appliedCoupon.code} applied!</span>
+                <button type="button" onClick={() => { setAppliedCoupon(null); setCouponCode(""); }} className="text-xs hover:underline">Remove</button>
+              </div>
+            )}
           </div>
 
           <form id="checkout-form" onSubmit={handleSubmit} className="w-full">
             <Button type="submit" disabled={loading || (isCartCheckout && cartItems.length === 0)} size="lg" className="w-full h-14 rounded-xl text-base font-semibold shadow-sm text-white">
-              <Lock className="w-4 h-4 mr-2" /> {loading ? `Processing...` : `Pay ৳${priceFormatted}`}
+              <Lock className="w-4 h-4 mr-2" /> {loading ? `Processing...` : `Pay ৳${finalPriceFormatted}`}
             </Button>
           </form>
           

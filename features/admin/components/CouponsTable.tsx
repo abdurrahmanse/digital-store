@@ -5,6 +5,9 @@ import { Plus, Ticket } from "lucide-react";
 import { DataTable } from "@/components/dashboard/DataTable";
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
+import { CouponActions } from "./CouponActions";
+import { CouponModal } from "./CouponModal";
+import { useState } from "react";
 
 type Coupon = {
   id: string;
@@ -27,12 +30,14 @@ export function CouponsTable({
   currentPage: number;
   totalPages: number;
 }) {
+  const [createOpen, setCreateOpen] = useState(false);
+
   const header = (
     <PageHeader 
       title="Discount Coupons" 
       description="Create and manage promotional codes."
       action={
-        <Button className="bg-slate-900 hover:bg-slate-800 text-white gap-2">
+        <Button onClick={() => setCreateOpen(true)} className="bg-slate-900 hover:bg-slate-800 text-white gap-2">
           <Plus className="w-4 h-4" /> Add Coupon
         </Button>
       }
@@ -40,9 +45,10 @@ export function CouponsTable({
   );
 
   return (
-    <DataTable
-      header={header}
-      columns={["Code", "Discount", "Usage", "Status", "Expires"]}
+    <>
+      <DataTable
+        header={header}
+        columns={["Code", "Discount", "Usage", "Status", "Expires", "Actions"]}
       isEmpty={coupons.length === 0}
       emptyMessage="No coupons active."
       currentPage={currentPage}
@@ -78,8 +84,23 @@ export function CouponsTable({
                 })
               : "Never"}
           </td>
+          <td className="px-6 py-4 text-right">
+            <CouponActions coupon={{
+              id: coupon.id,
+              code: coupon.code,
+              discountType: coupon.discountType as any,
+              discountValue: coupon.discountValue,
+              usageLimit: coupon.usageLimit || "",
+              isActive: coupon.isActive
+            }} />
+          </td>
         </tr>
       ))}
-    </DataTable>
+      </DataTable>
+
+      {createOpen && (
+        <CouponModal open={createOpen} setOpen={setCreateOpen} />
+      )}
+    </>
   );
 }

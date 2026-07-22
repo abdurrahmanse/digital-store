@@ -11,7 +11,7 @@ export const checkoutController = {
       }
 
       const body = await req.json();
-      const { items, email } = body;
+      const { items, email, couponCode } = body;
 
       if (!items || !items.length || !email) {
         return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -20,7 +20,8 @@ export const checkoutController = {
       const result = await checkoutService.createOrder({ 
         items, 
         email, 
-        userId: session.user.id 
+        userId: session.user.id,
+        couponCode
       });
       
       return NextResponse.json(result, { status: 201 });

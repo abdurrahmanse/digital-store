@@ -74,7 +74,7 @@ export function QuestionActions({ id, isUnanswered }: { id: string; isUnanswered
             <Button 
               size="icon" 
               variant="ghost" 
-              className="h-8 w-8 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20" 
+              className="h-8 w-8 text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20" 
               title="Reply to question"
             >
               <Reply className="h-4 w-4" />
@@ -107,7 +107,7 @@ export function QuestionActions({ id, isUnanswered }: { id: string; isUnanswered
       <Button 
         size="icon" 
         variant="ghost" 
-        className="h-8 w-8 text-rose-600 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-900/20" 
+        className="h-8 w-8 text-rose-600 dark:text-rose-400 hover:text-rose-700 hover:bg-rose-50 dark:hover:bg-rose-900/20" 
         title="Delete question"
         onClick={handleDelete}
         disabled={loading}

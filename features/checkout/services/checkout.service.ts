@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
 
 export const checkoutService = {
-  async createOrder(data: { items: { productId: string; quantity: number }[]; email: string; userId: string }) {
-    const { items, email, userId } = data;
+  async createOrder(data: { items: { productId: string; quantity: number }[]; email: string; userId: string; couponCode?: string }) {
+    const { items, email, userId, couponCode } = data;
 
     const productIds = items.map(item => item.productId);
     const products = await prisma.product.findMany({
@@ -32,6 +32,30 @@ export const checkoutService = {
         });
         totalAmount += itemPrice;
       }
+    }
+
+    // Apply Coupon if exists
+    if (couponCode) {
+      const coupon = await prisma.coupon.findUnique({
+        where: { code: couponCode.toUpperCase() }
+      });
+
+      if (!coupon || !coupon.isActive || (coupon.usageLimit && coupon.usedCount >= coupon.usageLimit)) {
+        throw new Error("Invalid or expired coupon");
+      }
+
+      if (coupon.discountType === "PERCENTAGE") {
+        const discountAmount = Math.floor((totalAmount * coupon.discountValue) / 100);
+        totalAmount = Math.max(0, totalAmount - discountAmount);
+      } else {
+        totalAmount = Math.max(0, totalAmount - coupon.discountValue);
+      }
+
+      // Increment used count
+      await prisma.coupon.update({
+        where: { id: coupon.id },
+        data: { usedCount: { increment: 1 } }
+      });
     }
 
     const order = await prisma.order.create({

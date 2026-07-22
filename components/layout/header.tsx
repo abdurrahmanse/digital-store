@@ -57,7 +57,7 @@ export async function Header() {
                 </Link>
                 <form action={async () => {
                   "use server";
-                  await signOut({ redirectTo: "/" });
+                  await signOut({ redirectTo: "/login" });
                 }}>
                   <Button type="submit" variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground hover:bg-muted rounded-full" title="Logout">
                     <LogOut className="h-5 w-5" />

@@ -33,7 +33,7 @@ export function LoginForm({ registered, reset, verified }: LoginFormProps) {
       
       if (response.ok && res.success) {
         toast.success("Successfully logged in");
-        router.push("/dashboard");
+        router.push("/");
       } else {
         if (res.error === "unverified") {
           router.push(`/verify-email?email=${encodeURIComponent(email)}`);

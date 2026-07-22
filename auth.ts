@@ -4,6 +4,12 @@ import { compare } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { authConfig } from "./auth.config";
 
+if (process.env.VERCEL_URL) {
+  const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+  if (!process.env.AUTH_URL) process.env.AUTH_URL = `https://${vercelUrl}`;
+  if (!process.env.NEXTAUTH_URL) process.env.NEXTAUTH_URL = `https://${vercelUrl}`;
+}
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
   providers: [
